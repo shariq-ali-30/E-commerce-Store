@@ -1,0 +1,184 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+:root {
+    /* ========== Brand Colors ========== */
+    --primary-color: #12B3B6;
+    --primary-dark: #0D8F92;
+    --primary-light: #E8FAFA;
+
+    /* ========== Backgrounds ========== */
+    --body-bg: #F8FBFC;
+    --section-bg: #FFFFFF;
+    --card-bg: #FFFFFF;
+    --footer-bg: #0F8F93;
+
+    /* ========== Text Colors ========== */
+    --text-primary: #1F2937;
+    --text-secondary: #6B7280;
+    --text-light: #FFFFFF;
+    --text-muted: #9CA3AF;
+
+    /* ========== Borders & Shadow ========== */
+    --border-color: #E5E7EB;
+    --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+    /* ========== Buttons ========== */
+    --btn-primary-bg: var(--primary-color);
+    --btn-primary-hover: var(--primary-dark);
+    --btn-primary-text: #FFFFFF;
+
+    --btn-outline-bg: transparent;
+    --btn-outline-border: var(--primary-color);
+    --btn-outline-text: var(--primary-color);
+
+    /* ========== Links ========== */
+    --link-color: var(--primary-color);
+    --link-hover: var(--primary-dark);
+
+    /* ========== Inputs ========== */
+    --input-bg: #FFFFFF;
+    --input-border: #D1D5DB;
+    --input-focus: var(--primary-color);
+    --placeholder-color: #9CA3AF;
+
+    /* ========== Product Card ========== */
+    --product-category-bg: #E8FAFA;
+    --product-category-text: var(--primary-dark);
+
+    --product-price: #111827;
+    --product-old-price: #9CA3AF;
+
+    --wishlist-bg: #FFFFFF;
+    --wishlist-icon: #6B7280;
+
+    /* ========== Rating ========== */
+    --rating-star: #F59E0B;
+
+    /* ========== Why Choose Us ========== */
+    --feature-icon-bg: #E8FAFA;
+    --feature-icon-color: var(--primary-color);
+
+    /* ========== Footer ========== */
+    --footer-text: rgba(255, 255, 255, .9);
+    --footer-link: rgba(255, 255, 255, .75);
+    --footer-link-hover: #FFFFFF;
+}
+
+body {
+    background-color: var(--body-bg);
+    color: var(--text-primary);
+}
+
+.container {
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.navbar {
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    background-color: var(--card-bg);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.navbar .logo i {
+    font-size: 40px;
+    color: var(--primary-color);
+}
+
+.navbar .logo h1 {
+    font-size: 30px;
+    font-family: 'DM Serif Display' , serif;
+}
+
+.navbar .logo h1 span {
+    color: var(--primary-color);
+    font-family: 'DM Serif Display' , serif;
+}
+
+.navbar .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.navbar .nav-links .link a {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.navbar .nav-links .link a:hover {
+    color: var(--text-primary);
+}
+
+.navbar .nav-links .link.active a {
+    color: var(--text-primary);
+}
+
+.navbar .nav-links .link a span {
+    width: 0;
+    border-bottom: 3px solid var(--primary-color);
+    border-radius: 10px;
+    visibility: hidden;
+    transition: width 0.2s ease;
+}
+
+.navbar .nav-links .link.active a span {
+    width: 30px;
+    visibility: visible;
+}
+
+.navbar .search-bar {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    height: 40px;
+}
+
+.navbar .search-bar i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 8px;
+    color: var(--text-muted);
+}
+
+.navbar .search-bar input {
+    width: 100%;
+    height: 100%;
+    padding: 0 10px;
+    padding-left: 30px;
+    background-color: var(--input-bg);
+    border: 1.5px solid var(--input-border);
+    border-radius: 6px;
+    outline: none;
+}
+
+.navbar .search-bar input::placeholder {
+    color: var(--text-muted);
+}
