@@ -6,67 +6,262 @@
 }
 
 :root {
-    /* ========== Brand Colors ========== */
-    --primary-color: #12B3B6;
-    --primary-dark: #0D8F92;
-    --primary-light: #E8FAFA;
 
-    /* ========== Backgrounds ========== */
-    --body-bg: #F8FBFC;
-    --section-bg: #FFFFFF;
-    --card-bg: #FFFFFF;
-    --footer-bg: #0F8F93;
+    /* ===========================
+     BRAND COLORS
+  =========================== */
 
-    /* ========== Text Colors ========== */
-    --text-primary: #1F2937;
+    --color-primary: #1AA6A6;
+    --color-primary-hover: #168F8F;
+    --color-primary-light: #E8F8F8;
+    --color-primary-dark: #0F6E6E;
+
+    --color-secondary: #111827;
+    --color-accent: #36CFC9;
+
+    --color-success: #22C55E;
+    --color-warning: #F59E0B;
+    --color-danger: #EF4444;
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+
+    /* ===========================
+     BODY
+  =========================== */
+
+    --body-bg: #F8FAFC;
+    --body-color: #111827;
+
+    /* ===========================
+     TEXT
+  =========================== */
+
+    --text-primary: #111827;
     --text-secondary: #6B7280;
-    --text-light: #FFFFFF;
     --text-muted: #9CA3AF;
+    --text-white: #FFFFFF;
+    --text-link: var(--color-primary);
+    --text-link-hover: var(--color-primary-hover);
 
-    /* ========== Borders & Shadow ========== */
-    --border-color: #E5E7EB;
-    --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    /* ===========================
+     NAVBAR
+  =========================== */
 
-    /* ========== Buttons ========== */
-    --btn-primary-bg: var(--primary-color);
-    --btn-primary-hover: var(--primary-dark);
-    --btn-primary-text: #FFFFFF;
+    --navbar-bg: #FFFFFF;
+    --navbar-color: #111827;
+    --navbar-link-color: #374151;
+    --navbar-link-hover: var(--color-primary);
+    --navbar-link-active: var(--color-primary);
+    --navbar-border: 1px solid #E5E7EB;
+    --navbar-shadow: 0 4px 20px rgba(0, 0, 0, .05);
+
+    /* ===========================
+     SEARCH
+  =========================== */
+
+    --search-bg: #FFFFFF;
+    --search-color: #111827;
+    --search-placeholder: #9CA3AF;
+    --search-icon: #6B7280;
+    --search-border: 1px solid #E5E7EB;
+    --search-focus-border: 1px solid var(--color-primary);
+
+    /* ===========================
+     BUTTONS
+  =========================== */
+
+    --btn-primary-bg: var(--color-primary);
+    --btn-primary-color: #FFFFFF;
+    --btn-primary-border: 1px solid transparent;
+    --btn-primary-hover-bg: var(--color-primary-hover);
+    --btn-primary-shadow: 0 10px 20px rgba(26, 166, 166, .25);
+
+    --btn-secondary-bg: #FFFFFF;
+    --btn-secondary-color: var(--color-primary);
+    --btn-secondary-border: 1px solid var(--color-primary);
 
     --btn-outline-bg: transparent;
-    --btn-outline-border: var(--primary-color);
-    --btn-outline-text: var(--primary-color);
+    --btn-outline-color: var(--color-primary);
+    --btn-outline-border: 1px solid var(--color-primary);
 
-    /* ========== Links ========== */
-    --link-color: var(--primary-color);
-    --link-hover: var(--primary-dark);
+    /* ===========================
+     HERO
+  =========================== */
 
-    /* ========== Inputs ========== */
+    --hero-bg: #FFFFFF;
+    --hero-title: #111827;
+    --hero-highlight: var(--color-primary);
+    --hero-description: #6B7280;
+
+    --hero-shape-bg: #DFF7F7;
+    --hero-circle-bg: #2FC4C4;
+
+    /* ===========================
+     SECTIONS
+  =========================== */
+
+    --section-bg: #FFFFFF;
+    --section-title: #111827;
+    --section-description: #6B7280;
+
+    /* ===========================
+     PRODUCT CARD
+  =========================== */
+
+    --card-bg: #FFFFFF;
+    --card-border: 1px solid #E5E7EB;
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, .05);
+    --card-hover-shadow: 0 20px 40px rgba(0, 0, 0, .12);
+
+    /* ===========================
+     PRODUCT IMAGE
+  =========================== */
+
+    --product-image-bg: #F9FAFB;
+    --product-image-border: 1px solid #F1F5F9;
+
+    /* ===========================
+     CATEGORY BADGE
+  =========================== */
+
+    --category-bg: #E8F8F8;
+    --category-color: var(--color-primary);
+    --category-border: 1px solid #CDEEEE;
+
+    /* ===========================
+     PRODUCT
+  =========================== */
+
+    --product-title: #111827;
+    --price-current: #111827;
+    --price-old: #9CA3AF;
+    --price-discount: #EF4444;
+
+    /* ===========================
+     RATING
+  =========================== */
+
+    --rating-star: #FBBF24;
+    --rating-color: #6B7280;
+
+    /* ===========================
+     CART BUTTON
+  =========================== */
+
+    --cart-btn-bg: var(--color-primary);
+    --cart-btn-color: #FFFFFF;
+    --cart-btn-border: 1px solid transparent;
+    --cart-btn-hover-bg: var(--color-primary-hover);
+
+    /* ===========================
+     ICONS
+  =========================== */
+
+    --icon-color: var(--color-primary);
+    --icon-bg: #E8F8F8;
+    --icon-border: 1px solid #D8F2F2;
+
+    --wishlist-icon-color: #6B7280;
+    --wishlist-icon-bg: #FFFFFF;
+    --wishlist-icon-border: 1px solid #E5E7EB;
+    --wishlist-icon-hover: #EF4444;
+
+    --cart-icon-color: #111827;
+    --cart-badge-bg: var(--color-primary);
+    --cart-badge-color: #FFFFFF;
+
+    --social-icon-bg: rgba(255, 255, 255, .12);
+    --social-icon-color: #FFFFFF;
+    --social-icon-border: 1px solid rgba(255, 255, 255, .15);
+    --social-icon-hover-bg: rgba(255, 255, 255, .20);
+
+    /* ===========================
+     FEATURE CARD
+  =========================== */
+
+    --feature-bg: #FFFFFF;
+    --feature-border: 1px solid #E5E7EB;
+    --feature-shadow: 0 8px 25px rgba(0, 0, 0, .05);
+    --feature-title: #111827;
+    --feature-text: #6B7280;
+
+    /* ===========================
+     INPUTS
+  =========================== */
+
     --input-bg: #FFFFFF;
-    --input-border: #D1D5DB;
-    --input-focus: var(--primary-color);
-    --placeholder-color: #9CA3AF;
+    --input-color: #111827;
+    --input-placeholder: #9CA3AF;
+    --input-border: 1px solid #D1D5DB;
+    --input-focus-border: 1px solid var(--color-primary);
 
-    /* ========== Product Card ========== */
-    --product-category-bg: #E8FAFA;
-    --product-category-text: var(--primary-dark);
+    /* ===========================
+     NEWSLETTER
+  =========================== */
 
-    --product-price: #111827;
-    --product-old-price: #9CA3AF;
+    --newsletter-bg: transparent;
+    --newsletter-title: #FFFFFF;
+    --newsletter-text: rgba(255, 255, 255, .90);
 
-    --wishlist-bg: #FFFFFF;
-    --wishlist-icon: #6B7280;
+    /* ===========================
+     FOOTER
+  =========================== */
 
-    /* ========== Rating ========== */
-    --rating-star: #F59E0B;
-
-    /* ========== Why Choose Us ========== */
-    --feature-icon-bg: #E8FAFA;
-    --feature-icon-color: var(--primary-color);
-
-    /* ========== Footer ========== */
-    --footer-text: rgba(255, 255, 255, .9);
-    --footer-link: rgba(255, 255, 255, .75);
+    --footer-bg: linear-gradient(90deg, #0D8F90, #13B7B8);
+    --footer-title: #FFFFFF;
+    --footer-text: rgba(255, 255, 255, .90);
+    --footer-link: rgba(255, 255, 255, .90);
     --footer-link-hover: #FFFFFF;
+    --footer-border: 1px solid rgba(255, 255, 255, .15);
+
+    /* ===========================
+     PAYMENT
+  =========================== */
+
+    --payment-bg: #FFFFFF;
+    --payment-border: 1px solid rgba(255, 255, 255, .20);
+
+    /* ===========================
+     COMMON BORDERS
+  =========================== */
+
+    --border-light: 1px solid #F3F4F6;
+    --border-default: 1px solid #E5E7EB;
+    --border-medium: 1px solid #D1D5DB;
+    --border-dark: 1px solid #9CA3AF;
+    --border-primary: 1px solid var(--color-primary);
+    --border-success: 1px solid var(--color-success);
+    --border-warning: 1px solid var(--color-warning);
+    --border-danger: 1px solid var(--color-danger);
+
+    /* ===========================
+     SHADOWS
+  =========================== */
+
+    --shadow-xs: 0 2px 4px rgba(0, 0, 0, .04);
+    --shadow-sm: 0 4px 10px rgba(0, 0, 0, .05);
+    --shadow-md: 0 10px 25px rgba(0, 0, 0, .08);
+    --shadow-lg: 0 20px 40px rgba(0, 0, 0, .12);
+
+    /* ===========================
+     RADIUS
+  =========================== */
+
+    --radius-xs: 4px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+
+    /* ===========================
+     TRANSITIONS
+  =========================== */
+
+    --transition-fast: .2s ease;
+    --transition-normal: .3s ease;
+    --transition-slow: .5s ease;
+
 }
 
 body {
@@ -81,9 +276,9 @@ body {
 }
 
 .navbar {
-    border-bottom: 1px solid var(--border-color);
-    box-shadow: var(--card-shadow);
-    background-color: var(--card-bg);
+    border-bottom: var(--navbar-border);
+    box-shadow: var(--navbar-shadow);
+    background-color: var(--navbar-bg);
 }
 
 .navbar .container {
@@ -101,17 +296,17 @@ body {
 
 .navbar .logo i {
     font-size: 40px;
-    color: var(--primary-color);
+    color: var(--color-accent);
 }
 
 .navbar .logo h1 {
     font-size: 30px;
-    font-family: 'DM Serif Display' , serif;
+    font-family: 'DM Serif Display', serif;
 }
 
 .navbar .logo h1 span {
-    color: var(--primary-color);
-    font-family: 'DM Serif Display' , serif;
+    color: var(--color-accent);
+    font-family: 'DM Serif Display', serif;
 }
 
 .navbar .nav-links {
@@ -142,7 +337,7 @@ body {
 
 .navbar .nav-links .link a span {
     width: 0;
-    border-bottom: 3px solid var(--primary-color);
+    border-bottom: 3px solid var(--color-accent);
     border-radius: 10px;
     visibility: hidden;
     transition: width 0.2s ease;
@@ -165,7 +360,7 @@ body {
     top: 50%;
     transform: translateY(-50%);
     left: 8px;
-    color: var(--text-muted);
+    color: var(--input-placeholder);
 }
 
 .navbar .search-bar input {
@@ -174,11 +369,57 @@ body {
     padding: 0 10px;
     padding-left: 30px;
     background-color: var(--input-bg);
-    border: 1.5px solid var(--input-border);
+    border: var(--input-border);
+    border-width: 1.5px;
     border-radius: 6px;
     outline: none;
 }
 
 .navbar .search-bar input::placeholder {
-    color: var(--text-muted);
+    color: var(--input-placeholder);
+}
+
+.navbar .btns {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar .btns button {
+    height: 40px;
+    padding: 0 20px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.navbar .btns button.login-btn {
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-color);
+    border: var(--btn-primary-border);
+}
+
+.navbar .btns button.signup-btn {
+    background-color: var(--btn-secondary-bg);
+    color: var(--btn-secondary-color);
+    border: var(--btn-secondary-border);
+    border-width: 1.5px;
+}
+
+.navbar .icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 26px;
+    color: var(--text-secondary);
+}
+
+.navbar .icons div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
 }
