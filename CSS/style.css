@@ -285,6 +285,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
     height: 70px;
 }
 
@@ -312,7 +313,7 @@ body {
 .navbar .nav-links {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 30px;
 }
 
 .navbar .nav-links .link a {
@@ -390,6 +391,7 @@ body {
     padding: 0 20px;
     font-size: 14px;
     border-radius: 4px;
+    white-space: nowrap;
     cursor: pointer;
 }
 
@@ -409,7 +411,6 @@ body {
 .navbar .icons {
     display: flex;
     align-items: center;
-    gap: 10px;
     font-size: 26px;
     color: var(--text-secondary);
 }
@@ -418,8 +419,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.navbar .icons div:hover {
+    background-color: #f3f4f6;
+}
+
+.hero-section {
+    height: 500px;
+    width: 100%;
+    background-image: url('../images/hero-image.jpg');
+    background-size: cover;
 }
