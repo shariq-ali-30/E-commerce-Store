@@ -263,6 +263,11 @@
 
 }
 
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 60px;
+}
+
 body {
     background-color: var(--body-bg);
     color: var(--text-primary);
@@ -274,6 +279,10 @@ body {
 }
 
 .navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 100;
     border-bottom: var(--navbar-border);
     box-shadow: var(--navbar-shadow);
     background-color: var(--navbar-bg);
@@ -356,8 +365,8 @@ body {
 
 .navbar .search-bar {
     position: relative;
-    width: 100%;
-    max-width: 300px;
+    width: 1000px;
+    max-width: 250px;
     min-width: 150px;
     height: 40px;
 }
@@ -454,9 +463,7 @@ body {
 }
 
 .hero-section {
-    height: 88vh;
-    max-height: 900px;
-    overflow: hidden;
+    height: fit-content;
 }
 
 .hero-section img {
@@ -474,16 +481,17 @@ body {
     margin-bottom: 25px;
 }
 
-.cards-section .cards {
+.cards-section .cards,
+#menSection {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 25px;
     flex-wrap: wrap;
 }
 
 .cards-section .cards .card {
     width: 100%;
-    max-width: 250px;
+    max-width: 270px;
     background-color: var(--card-bg);
     border: var(--card-border);
     box-shadow: var(--card-shadow);
@@ -499,14 +507,12 @@ body {
     align-items: center;
     position: relative;
     width: 100%;
-    height: 200px;
+    height: 220px;
     overflow: hidden;
 }
 
 .cards-section .cards .card .image img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 .cards-section .cards .card .image .like-btn {
@@ -539,6 +545,9 @@ body {
 }
 
 .cards-section .cards .card .content .title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     font-size: 16px;
     font-weight: 700;
 }
@@ -600,44 +609,55 @@ body {
 }
 
 .footer {
-    padding: 30px;
-    margin-top: 30px;
+    margin-top: 20px;
     display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
+    flex-direction: column;
 }
 
-.footer>div {
+.footer .top {
+    width: 100%;
+    max-width: 1200px;
+    padding: 30px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+
+}
+
+.footer .top>div {
     max-width: 200px;
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.footer>div span {
+.footer .top>div span {
     color: var(--text-secondary);
     font-size: 12px;
     display: flex;
     gap: 6px;
+    cursor: pointer;
 }
 
-.footer>div p {
+.footer .top>div p {
     font-weight: 500;
     margin-top: 10px;
 }
 
-.footer .left span {
+.footer .top .left span {
     font-size: 14px;
     margin: 10px 0;
+    cursor: default;
 }
 
-.footer .left .social-icons {
+.footer .top .left .social-icons {
     display: flex;
     gap: 10px;
 }
 
-.footer .left .social-icons div {
+.footer .top .left .social-icons div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -647,6 +667,16 @@ body {
     background: var(--icon-bg);
     color: var(--icon-color);
     cursor: pointer;
+}
+
+.footer .bottom {
+    font-size: 14px;
+    height: 50px;
+    background-color: var(--color-primary);
+    color: var(--text-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (max-width: 1110px) {

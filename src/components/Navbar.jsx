@@ -20,7 +20,7 @@ const Navbar = () => {
                             </div>
 
                             <div className="link">
-                                <a href="#">
+                                <a href="#menSection">
                                     Men <span></span>
                                 </a>
                             </div>

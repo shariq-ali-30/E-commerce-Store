@@ -1,6 +1,4 @@
-import React from "react";
-
-const Card = () => {
+const Card = ({product}) => {
   return (
     <div className="card">
       <div className="image">
@@ -8,15 +6,15 @@ const Card = () => {
           <i className="ph ph-heart"></i>
         </button>
         <img
-          src="httpsencrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgvnyw9Oc24sU-2IgYzk0bmkUwayaeV3gBQ0Zn-LMiJw&s"
+          src={product.images[0]}
           alt="kuch bhii"
         />
         <p>Men</p>
       </div>
       <div className="content">
-        <h3 className="title">Casual Cotton Shirt</h3>
+        <h3 className="title">{product.title}</h3>
         <p className="rating">
-          <i className="ph-fill ph-star"></i> 4.5 <span>(13)</span>
+          <i className="ph-fill ph-star"></i> {product.rating} <span>(13)</span>
         </p>
         <span className="price">
           RS. 2000 <span>RS. 3000</span>

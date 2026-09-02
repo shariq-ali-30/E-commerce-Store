@@ -1,39 +1,17 @@
-import Card from './Card'
+import MenSection from "./MenSection";
 
 const CardsSection = () => {
-    return (
-        <div className="container">
-            <section className='cards-section'>
+  return (
+    <div className="container">
+      <section className="cards-section">
+        <h2>Featured Products</h2>
 
-                <h2>Featured Products</h2>
-
-                <div className="cards">
-
-                   <Card />
-                   <Card />
-                   <Card />
-                   <Card />
-                   <Card />
-                   <Card />
-                   <Card />
-                   <Card />
-                   <Card />
-                   <Card />
-
-                </div>
-
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-            </section>
+        <div className="cards">
+          <MenSection />
         </div>
+      </section>
+    </div>
+  );
+};
 
-    )
-}
-
-export default CardsSection
+export default CardsSection;
