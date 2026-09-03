@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import CardSkeleton from "./CardSkeleton";
+import { Link } from "react-router-dom";
 
 const MenSection = () => {
   let [data, setData] = useState([]);
@@ -49,7 +50,11 @@ const MenSection = () => {
           ? Array.from({ length: 8 }).map((_, index) => (
               <CardSkeleton key={index} />
             ))
-          : data.map((product) => <Card key={product.id} product={product} />)}
+          : data.map((product) => (
+              <Link key={product.id} to={`pages/ProductDetails/${product.id}`}>
+                <Card key={product.id} product={product} />
+              </Link>
+            ))}
       </div>
     </section>
   );

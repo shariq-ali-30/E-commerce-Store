@@ -307,6 +307,7 @@ body {
 .navbar .menu i {
     display: none;
     font-size: 30px;
+    cursor: pointer;
 }
 
 .navbar .nav-links {
@@ -324,7 +325,7 @@ body {
     text-decoration: none;
     color: var(--text-secondary);
     font-weight: 500;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 .navbar .nav-links a:hover {
@@ -462,8 +463,7 @@ body {
 }
 
 .cards-section .cards .card {
-    width: 100%;
-    max-width: 270px;
+    width: 270px;
     background-color: var(--card-bg);
     border: var(--card-border);
     box-shadow: var(--card-shadow);
@@ -740,6 +740,293 @@ body {
     align-items: center;
 }
 
+/* Product Details */
+
+.product-details-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    padding: 40px 30px;
+    margin-top: 20px;
+    background-color: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: var(--border-default);
+}
+
+.product-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.product-gallery .main-image {
+    width: 100%;
+    height: 500px;
+    background-color: var(--product-image-bg);
+    border: var(--product-image-border);
+    border-radius: var(--radius-md);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.product-gallery .main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.product-gallery .thumbnail-list {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+}
+
+.product-gallery .thumbnail {
+    width: 90px;
+    height: 90px;
+    background-color: var(--product-image-bg);
+    border: var(--border-default);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    padding: 5px;
+}
+
+.product-gallery .thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-info .category-badge {
+    background-color: var(--category-bg);
+    color: var(--category-color);
+    border: var(--category-border);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    width: fit-content;
+    margin-bottom: 15px;
+}
+
+.product-info .title {
+    font-size: 32px;
+    font-family: 'DM Serif Display', serif;
+    color: var(--product-title);
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.product-info .rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.product-info .rating i {
+    color: var(--rating-star);
+    font-size: 20px;
+}
+
+.product-info .rating span {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.product-info .price-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.product-info .current-price {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--price-current);
+    line-height: 1;
+}
+
+.product-info .old-price {
+    font-size: 18px;
+    color: var(--price-old);
+    text-decoration: line-through;
+    margin-bottom: 3px;
+}
+
+.product-info .discount-badge {
+    background-color: var(--color-danger);
+    color: var(--text-white);
+    padding: 3px 8px;
+    border-radius: var(--radius-xs);
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.product-info .description {
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.product-info .meta-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.product-info .meta-item {
+    display: flex;
+    gap: 10px;
+    font-size: 15px;
+}
+
+.product-info .meta-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+    min-width: 110px;
+}
+
+.product-info .meta-value {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.product-info .meta-value.in-stock {
+    color: var(--color-success);
+}
+
+.product-info .meta-value.out-of-stock {
+    color: var(--color-danger);
+}
+
+.product-info .divider {
+    border: none;
+    border-top: var(--border-default);
+    margin-bottom: 30px;
+}
+
+.product-info .action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.product-info .quantity-selector {
+    display: flex;
+    align-items: center;
+    border: var(--input-border);
+    border-radius: var(--radius-md);
+    height: 50px;
+    background-color: var(--input-bg);
+}
+
+.product-info .quantity-selector button {
+    background: transparent;
+    border: none;
+    height: 100%;
+    width: 45px;
+    font-size: 16px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.product-info .quantity-selector button:hover {
+    color: var(--color-primary);
+}
+
+.product-info .quantity-selector span {
+    font-size: 16px;
+    font-weight: 600;
+    width: 30px;
+    text-align: center;
+}
+
+.product-info .add-to-cart-btn {
+    flex-grow: 1;
+    height: 50px;
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-color);
+    border: var(--btn-primary-border);
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+
+.product-info .add-to-cart-btn i {
+    font-size: 20px;
+}
+
+.product-info .wishlist-btn {
+    height: 50px;
+    width: 50px;
+    background-color: var(--wishlist-icon-bg);
+    color: var(--wishlist-icon-color);
+    border: var(--wishlist-icon-border);
+    border-radius: var(--radius-md);
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+@media (max-width: 950px) {
+    .product-details-section {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .product-gallery .main-image {
+        height: 400px;
+    }
+}
+
+@media (max-width: 500px) {
+    .product-gallery .main-image {
+        height: 300px;
+    }
+
+    .product-info .title {
+        font-size: 24px;
+    }
+
+    .product-info .action-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .product-info .quantity-selector {
+        justify-content: space-between;
+    }
+}
+
 @media (max-width: 1110px) {
 
     .navbar .btns {
@@ -772,6 +1059,26 @@ body {
         display: block;
     }
 
+    .navbar .overlay {
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.35);
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        visibility: hidden;
+        opacity: 0;
+        transition:
+            opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+            visibility 0.35s;
+    }
+
+    .navbar .overlay.active {
+        visibility: visible;
+        opacity: 1;
+    }
+
     .navbar .menu .nav-links {
         border-right: var(--navbar-border);
         box-shadow: var(--navbar-shadow);
@@ -783,36 +1090,44 @@ body {
         left: 0;
         top: 0;
         flex-direction: column;
-        align-items: start;
+        gap: 0;
+        margin: 0;
+
+        transform: translateX(-100%);
+        transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .navbar .overlay.active .nav-links {
+        transform: translateX(0);
     }
 
     .navbar .menu .nav-links i {
         font-size: 24px;
         position: absolute;
         top: 22px;
-        left: 20px;
+        left: 22px;
         cursor: pointer;
     }
 
     .navbar .menu .nav-links a {
+        padding: 0 20px;
+        justify-content: start;
+        height: 50px;
+        border-radius: 6px;
         flex-direction: row-reverse;
-        gap: 20px;
-        background-color: red;
-        width: 90%;
+        gap: 15px;
+        width: 95%;
         margin: 0 auto;
-        text-align: left;
     }
 
     .navbar .menu .nav-links a span {
-        width: 0;
-        height: 0;
+        display: none;
     }
 
-    .navbar .menu .nav-links a.active span {
-        height: 30px;
+    .navbar .menu .nav-links a.active {
+        background-color: var(--color-primary);
+        color: var(--text-white);
     }
-
-
 }
 
 @media (max-width: 400px) {
