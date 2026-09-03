@@ -1,4 +1,3 @@
-import KidsSection from "./KidsSection";
 import MenSection from "./MenSection";
 import WomenSection from "./WomenSection";
 
@@ -8,7 +7,6 @@ const CardsSection = () => {
       <section className="cards-section">
         <MenSection />
         <WomenSection />
-        <KidsSection />
       </section>
     </div>
   );

@@ -1,6 +1,13 @@
 import logo from "../images/logo.png";
 
 const Navbar = () => {
+  let activeLinkHandler = (clickedLink) => {
+    let links = document.querySelectorAll(".nav-links a");
+
+    links.forEach((link) => link.classList.remove("active"));
+    clickedLink.classList.add("active");
+  };
+
   return (
     <div className="navbar">
       <div className="container">
@@ -13,45 +20,31 @@ const Navbar = () => {
             <i className="ph ph-list"></i>
 
             <div className="nav-links">
-              <div className="link active">
-                <a href="#">
-                  Home <span></span>
-                </a>
-              </div>
+              <i className="ph-bold ph-x"></i>
+              <a
+                href="#"
+                className="active"
+                onClick={(e) => activeLinkHandler(e.target)}
+              >
+                Home <span></span>
+              </a>
 
-              <div className="link">
-                <a href="#men">
-                  Men <span></span>
-                </a>
-              </div>
+              <a href="#men" onClick={(e) => activeLinkHandler(e.target)}>
+                Men <span></span>
+              </a>
 
-              <div className="link">
-                <a href="#women">
-                  Women <span></span>
-                </a>
-              </div>
+              <a href="#women" onClick={(e) => activeLinkHandler(e.target)}>
+                Women <span></span>
+              </a>
 
-              <div className="link">
-                <a href="#kids">
-                  Kids <span></span>
-                </a>
-              </div>
-
-              <div className="link">
-                <a href="#">
-                  Contact <span></span>
-                </a>
-              </div>
+              <a href="#footer" onClick={(e) => activeLinkHandler(e.target)}>
+                Contact <span></span>
+              </a>
             </div>
           </div>
         </div>
 
         <div className="right">
-          <div className="search-bar">
-            <i className="ph ph-magnifying-glass"></i>
-            <input type="text" placeholder="Search products..." />
-          </div>
-
           <div className="btns">
             <button className="login-btn">Login</button>
             <button className="signup-btn">Sign Up</button>
