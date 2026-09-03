@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+@import "tailwindcss";
+
 * {
     margin: 0;
     padding: 0;
@@ -265,7 +268,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 60px;
+    scroll-padding-top: 90px;
 }
 
 body {
@@ -476,17 +479,30 @@ body {
     padding: 0 30px;
 }
 
-.cards-section h2 {
-    font-size: 28px;
-    margin-bottom: 25px;
-}
-
-.cards-section .cards,
-#menSection {
+.cards {
     display: flex;
     justify-content: center;
     gap: 25px;
     flex-wrap: wrap;
+}
+
+.section-title {
+    font-size: 28px;
+    margin: 28px auto;
+    width: fit-content;
+    font-family: 'DM Serif Display', serif;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.section-title span {
+    width: 60px;
+    border: 2px solid var(--color-primary);
+    border-radius: 999px;
 }
 
 .cards-section .cards .card {
@@ -526,18 +542,6 @@ body {
     width: 40px;
     border-radius: 50%;
     cursor: pointer;
-}
-
-.cards-section .cards .card .image p {
-    position: absolute;
-    bottom: 8px;
-    left: 8px;
-    padding: 2px 6px;
-    border-radius: 999px;
-    background-color: var(--category-bg);
-    color: var(--category-color);
-    border: var(--category-border);
-    font-size: 12px;
 }
 
 .cards-section .cards .card .content {
@@ -606,6 +610,107 @@ body {
 
 .cards-section .cards .card .content button i {
     font-size: 15px;
+}
+
+.card-skeleton {
+    pointer-events: none;
+}
+
+.card-skeleton .skeleton {
+    background: #F3F4F6;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-skeleton .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.7) 50%,
+            transparent 100%);
+    animation: skeleton-shimmer 1.4s infinite;
+}
+
+.card-skeleton .skeleton-image {
+    position: relative;
+}
+
+.card-skeleton .image-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    background: #F7F7F7;
+}
+
+.card-skeleton .like-skeleton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+}
+
+.card-skeleton .title-skeleton {
+    width: 85%;
+    height: 18px;
+    margin-bottom: 12px;
+}
+
+.card-skeleton .rating-skeleton {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 8px 0;
+}
+
+.card-skeleton .star-skeleton {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+}
+
+.card-skeleton .rating-number-skeleton {
+    width: 30px;
+    height: 13px;
+}
+
+.card-skeleton .reviews-skeleton {
+    width: 35px;
+    height: 10px;
+}
+
+.card-skeleton .price-skeleton {
+    display: flex;
+    align-items: end;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.card-skeleton .price-main-skeleton {
+    width: 65px;
+    height: 19px;
+}
+
+.card-skeleton .price-old-skeleton {
+    width: 45px;
+    height: 12px;
+}
+
+.card-skeleton .button-skeleton {
+    width: 100%;
+    height: 31px;
+    margin-top: 8px;
+    border-radius: var(--radius-xs);
+}
+
+@keyframes skeleton-shimmer {
+    100% {
+        transform: translateX(100%);
+    }
 }
 
 .footer {

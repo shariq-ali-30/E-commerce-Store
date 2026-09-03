@@ -1,25 +1,38 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
+import CardSkeleton from "./CardSkeleton";
 
 const MenSection = () => {
   let [data, setData] = useState([]);
+  let [loading, setLoading] = useState(false);
 
   let getData = async () => {
-    let res1 = await fetch(
-      "https://dummyjson.com/products/category/mens-shirts",
-    );
-    let res2 = await fetch(
-      "https://dummyjson.com/products/category/mens-shoes",
-    );
-    let res3 = await fetch(
-      "https://dummyjson.com/products/category/mens-watches",
-    );
+    setLoading(true);
+    try {
+      let res1 = await fetch(
+        "https://dummyjson.com/products/category/mens-shirts",
+      );
+      let res2 = await fetch(
+        "https://dummyjson.com/products/category/mens-shoes",
+      );
+      let res3 = await fetch(
+        "https://dummyjson.com/products/category/mens-watches",
+      );
 
-    let data1 = await res1.json();
-    let data2 = await res2.json();
-    let data3 = await res3.json();
+      let data1 = await res1.json();
+      let data2 = await res2.json();
+      let data3 = await res3.json();
 
-    setData([...data1.products, ...data2.products, ...data3.products]);
+      setData([
+        ...data1.products,
+        ...data2.products,
+        ...data3.products.slice(0, 5),
+      ]);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -27,10 +40,17 @@ const MenSection = () => {
   }, []);
 
   return (
-    <section id="menSection">
-      {data.map((product) => (
-        <Card key={product.id} product={product}/>
-      ))}
+    <section id="men">
+      <h2 className="section-title">
+        Men's Collection <span></span>
+      </h2>
+      <div className="cards">
+        {loading
+          ? Array.from({ length: 8 }).map((_, index) => (
+              <CardSkeleton key={index} />
+            ))
+          : data.map((product) => <Card key={product.id} product={product} />)}
+      </div>
     </section>
   );
 };
