@@ -3,29 +3,39 @@ import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../context/UsersContext";
 
 const Login = () => {
-  let {allUsers, setAlUsers, currentUser} = useContext(UserContext)
+  let { allUsers, currentUser, setCurrentUser } =
+    useContext(UserContext);
 
   if (currentUser) {
-    return <Navigate to={"/"}/>
+    return <Navigate to={"/"} />;
   }
-
 
   let [form, setForm] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   let handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   let loginHandler = (e) => {
     e.preventDefault();
 
+    let user = allUsers.find(
+      (u) =>
+        u.email.toLowerCase().trim() == form.email.toLowerCase().trim() &&
+        u.password.trim() == form.password.trim(),
+    );
 
+    if (user) {
+      setCurrentUser(user);
+    } else {
+      console.error("invalid");
+    }
   };
 
   return (
@@ -42,8 +52,8 @@ const Login = () => {
             <div className="input-group">
               <label htmlFor="email">Email</label>
               <input
-              onChange={handleChange}
-              value={form.email}
+                onChange={handleChange}
+                value={form.email}
                 type="email"
                 name="email"
                 placeholder="Enter your email"
@@ -54,8 +64,8 @@ const Login = () => {
             <div className="input-group">
               <label htmlFor="password">Password</label>
               <input
-              onChange={handleChange}
-              value={form.password}
+                onChange={handleChange}
+                value={form.password}
                 type="password"
                 name="password"
                 placeholder="••••••••"
