@@ -1,5 +1,5 @@
 import React from 'react'
-import banner from '../images/hero-banner.jpeg'
+import banner from '../images/hero-banner.jpg'
 
 const HeroSection = React.memo(() => {
     return (

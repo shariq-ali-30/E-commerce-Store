@@ -68,11 +68,6 @@ const Navbar = () => {
               <span>2</span>
               <i className="ph ph-shopping-cart"></i>
             </div>
-
-            <div className="icon">
-              <span>3</span>
-              <i className="ph ph-heart"></i>
-            </div>
           </div>
         </div>
       </div>

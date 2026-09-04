@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const WomenSection = () => {
   let [data, setData] = useState([]);
-  let [loading, setLoading] = useState(false);
+  let [loading, setLoading] = useState(true);
 
   let getData = async () => {
     setLoading(true);

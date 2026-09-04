@@ -1,7 +1,33 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { UserContext } from "../context/UsersContext";
 
 const Login = () => {
+  let {allUsers, setAlUsers, currentUser} = useContext(UserContext)
+
+  if (currentUser) {
+    return <Navigate to={"/"}/>
+  }
+
+
+  let [form, setForm] = useState({
+    email: "",
+    password: ""
+  });
+
+  let handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  let loginHandler = (e) => {
+    e.preventDefault();
+
+
+  };
+
   return (
     <>
       <div className="container login-page">
@@ -12,12 +38,14 @@ const Login = () => {
             </h1>
           </div>
 
-          <form className="login-form">
+          <form className="login-form" onSubmit={loginHandler}>
             <div className="input-group">
               <label htmlFor="email">Email</label>
               <input
+              onChange={handleChange}
+              value={form.email}
                 type="email"
-                id="email"
+                name="email"
                 placeholder="Enter your email"
                 required
               />
@@ -26,8 +54,10 @@ const Login = () => {
             <div className="input-group">
               <label htmlFor="password">Password</label>
               <input
+              onChange={handleChange}
+              value={form.password}
                 type="password"
-                id="password"
+                name="password"
                 placeholder="••••••••"
                 required
               />
