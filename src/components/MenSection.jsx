@@ -47,11 +47,11 @@ const MenSection = () => {
       </h2>
       <div className="cards">
         {loading
-          ? Array.from({ length: 8 }).map((_, index) => (
+          ? Array.from({ length: 15 }).map((_, index) => (
               <CardSkeleton key={index} />
             ))
           : data.map((product) => (
-              <Link key={product.id} to={`pages/ProductDetails/${product.id}`}>
+              <Link key={product.id} to={`pages/details/${product.id}`}>
                 <Card key={product.id} product={product} />
               </Link>
             ))}

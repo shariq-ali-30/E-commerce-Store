@@ -471,6 +471,11 @@ body {
     overflow: hidden;
 }
 
+a {
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
 .cards-section .cards .card .image {
     background-color: var(--product-image-bg);
     border-bottom: var(--product-image-border);
@@ -747,11 +752,7 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 50px;
     padding: 40px 30px;
-    margin-top: 20px;
-    background-color: var(--card-bg);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    border: var(--border-default);
+    margin: auto 0;
 }
 
 .product-gallery {
@@ -977,7 +978,6 @@ body {
     transition: var(--transition-fast);
 }
 
-
 .product-info .add-to-cart-btn i {
     font-size: 20px;
 }
@@ -995,6 +995,164 @@ body {
     align-items: center;
     cursor: pointer;
     transition: var(--transition-fast);
+}
+
+/* Login Page */
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.login-container {
+    background-color: var(--card-bg);
+    border: var(--border-default);
+    box-shadow: var(--shadow-md);
+    border-radius: 14px;
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-header h1 {
+    margin: 0 auto;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.input-group input {
+    height: 45px;
+    padding: 0 15px;
+    border: var(--input-border);
+    border-radius: 6px;
+    background-color: var(--input-bg);
+    color: var(--input-color);
+    font-size: 15px;
+    outline: none;
+    transition: border var(--transition-fast);
+}
+
+.input-group input:focus {
+    border: var(--input-focus-border);
+}
+
+.input-group input::placeholder {
+    color: var(--input-placeholder);
+}
+
+.login-submit-btn {
+    height: 45px;
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-color);
+    border: var(--btn-primary-border);
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.login-footer a {
+    color: var(--text-link);
+    font-weight: 600;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Sign Up Page */
+
+.signup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.signup-container {
+    background-color: var(--card-bg);
+    border: var(--border-default);
+    box-shadow: var(--shadow-md);
+    border-radius: 14px;
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+}
+
+.signup-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.signup-header h1 {
+    margin: 0 auto;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.signup-submit-btn {
+    height: 45px;
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-color);
+    border: var(--btn-primary-border);
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.signup-footer {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.signup-footer a {
+    color: var(--text-link);
+    font-weight: 600;
+}
+
+.signup-footer a:hover {
+    text-decoration: underline;
 }
 
 @media (max-width: 950px) {

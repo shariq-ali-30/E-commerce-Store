@@ -8,12 +8,12 @@ const ProductDetails = () => {
   let [product, setProduct] = useState(null);
 
   let getData = async () => {
-    setLoading(true)
+    setLoading(true);
     let res = await fetch(`https://dummyjson.com/products/${id}`);
     let product = await res.json();
 
     setProduct(product);
-    setLoading(false)
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const ProductDetails = () => {
               <hr className="divider" />
 
               <div className="action-buttons">
-                                <button className="add-to-cart-btn">
+                <button className="add-to-cart-btn">
                   <i className="ph ph-shopping-cart"></i> Add to Cart
                 </button>
 

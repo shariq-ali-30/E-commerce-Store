@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
 
 const Navbar = () => {
@@ -11,7 +12,8 @@ const Navbar = () => {
   let openMenu = () =>
     document.querySelector(".overlay").classList.add("active");
 
-  let closeMenu = () => document.querySelector(".overlay").classList.remove("active")
+  let closeMenu = () =>
+    document.querySelector(".overlay").classList.remove("active");
 
   return (
     <div className="navbar">
@@ -53,8 +55,12 @@ const Navbar = () => {
 
         <div className="right">
           <div className="btns">
-            <button className="login-btn">Login</button>
-            <button className="signup-btn">Sign Up</button>
+            <Link to={"/login"}>
+              <button className="login-btn">Login</button>
+            </Link>
+            <Link to={"/signup"}>
+              <button className="signup-btn">Signup</button>
+            </Link>
           </div>
 
           <div className="icons">

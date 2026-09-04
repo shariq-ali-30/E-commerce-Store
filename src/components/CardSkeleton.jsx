@@ -19,8 +19,6 @@ const CardSkeleton = () => {
           <div className="skeleton price-main-skeleton"></div>
           <div className="skeleton price-old-skeleton"></div>
         </div>
-
-        <div className="skeleton button-skeleton"></div>
       </div>
     </div>
   );
