@@ -3,17 +3,21 @@ import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../context/UsersContext";
 
 const Login = () => {
-  let { allUsers, currentUser, setCurrentUser } =
-    useContext(UserContext);
-
-  if (currentUser) {
-    return <Navigate to={"/"} />;
-  }
+  let { allUsers, currentUser, setCurrentUser } = useContext(UserContext);
 
   let [form, setForm] = useState({
     email: "",
     password: "",
   });
+
+  let [error, setError] = useState({
+    message: "",
+    show: false,
+  });
+
+  if (currentUser) {
+    return <Navigate to={"/"} />;
+  }
 
   let handleChange = (e) => {
     setForm({
@@ -34,8 +38,18 @@ const Login = () => {
     if (user) {
       setCurrentUser(user);
     } else {
-      console.error("invalid");
+      return showError("Invalid email or password.")
     }
+  };
+
+  let errorTimeOut;
+  let showError = (msg) => {
+    clearTimeout(errorTimeOut);
+    setError({ message: msg, show: true });
+
+    errorTimeOut = setTimeout(() => {
+      setError({ message: "", show: false });
+    }, 5000);
   };
 
   return (
@@ -47,6 +61,10 @@ const Login = () => {
               Welcome Back<span></span>
             </h1>
           </div>
+
+          <p className={`error-msg ${error.show ? "active" : ""}`}>
+            {error.message}
+          </p>
 
           <form className="login-form" onSubmit={loginHandler}>
             <div className="input-group">

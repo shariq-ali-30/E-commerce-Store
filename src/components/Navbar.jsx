@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
+import { useContext } from "react";
+import { UserContext } from "../context/UsersContext";
 
 const Navbar = () => {
+  let navigate = useNavigate()
+  let { currentUser, setCurrentUser } = useContext(UserContext);
+
   let activeLinkHandler = (clickedLink) => {
     let links = document.querySelectorAll(".nav-links a");
 
@@ -14,6 +19,11 @@ const Navbar = () => {
 
   let closeMenu = () =>
     document.querySelector(".overlay").classList.remove("active");
+
+  let handleLogout = () => {
+    setCurrentUser(null)
+    navigate("/login")
+  }
 
   return (
     <div className="navbar">
@@ -55,17 +65,26 @@ const Navbar = () => {
 
         <div className="right">
           <div className="btns">
-            <Link to={"/login"}>
-              <button className="login-btn">Login</button>
-            </Link>
-            <Link to={"/signup"}>
-              <button className="signup-btn">Signup</button>
-            </Link>
+            {!currentUser ? (
+              <>
+                <Link to={"/login"}>
+                  <button className="login-btn">Login</button>
+                </Link>
+                <Link to={"/signup"}>
+                  <button className="signup-btn">Signup</button>
+                </Link>
+              </>
+            ) : (
+              <button className="logout-btn" onClick={handleLogout}>
+                <i className="ph-bold ph-sign-out"></i>
+                Logout
+              </button>
+            )}
           </div>
 
           <div className="icons">
             <div className="icon">
-              <span>2</span>
+              {/* <span>2</span> */}
               <i className="ph ph-shopping-cart"></i>
             </div>
           </div>

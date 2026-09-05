@@ -4,10 +4,7 @@ let UserContext = createContext();
 
 const UsersProvider = ({ children }) => {
   if (!localStorage.getItem("allUsers")) {
-    localStorage.setItem("allUsers", JSON.stringify([{
-      email: "shariq3072007@gmail.com",
-      password: "12345678"
-    }]));
+    localStorage.setItem("allUsers", JSON.stringify([]));
   }
 
   if (!localStorage.getItem("currentUser")) {
