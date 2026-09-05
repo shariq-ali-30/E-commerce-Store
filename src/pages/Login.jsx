@@ -38,16 +38,14 @@ const Login = () => {
     if (user) {
       setCurrentUser(user);
     } else {
-      return showError("Invalid email or password.")
+      return showError("Invalid email or password.");
     }
   };
 
-  let errorTimeOut;
   let showError = (msg) => {
-    clearTimeout(errorTimeOut);
     setError({ message: msg, show: true });
 
-    errorTimeOut = setTimeout(() => {
+    setTimeout(() => {
       setError({ message: "", show: false });
     }, 5000);
   };

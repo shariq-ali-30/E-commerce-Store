@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../context/UsersContext";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../Firebase/firebase";
 
 const Signup = () => {
-  let { allUsers, setAllUsers, currentUser, setCurrentUser } =
-    useContext(UserContext);
+  let { currentUser, setCurrentUser } = useContext(UserContext);
 
   let [form, setForm] = useState({
     name: "",
@@ -17,6 +18,8 @@ const Signup = () => {
     show: false,
   });
 
+  let [loading, setLoading] = useState(false);
+
   if (currentUser) {
     return <Navigate to={"/"} />;
   }
@@ -28,38 +31,36 @@ const Signup = () => {
     });
   };
 
-  let signupHandler = (e) => {
+  let signupHandler = async (e) => {
     e.preventDefault();
+    setError((prev) => ({ ...prev, show: false }));
+    setLoading(true);
 
-    if (form.password.trim().length < 8) {
-      return showError("Password must be 8 characters long.");
+    try {
+      let { user } = await createUserWithEmailAndPassword(
+        auth,
+        form.email.trim(),
+        form.password.trim(),
+      );
+
+      setCurrentUser(user.uid);
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        showError("An account with this email already exists.");
+      } else if (error.code === "auth/weak-password") {
+        showError("Password must be at least 6 characters long.");
+      } else {
+        showError("Something went wrong. Please try again.");
+      }
+    } finally {
+      setLoading(false);
     }
-
-    let userExist = allUsers.find(
-      (u) => u.email.toLowerCase().trim() == form.email.toLowerCase().trim(),
-    );
-
-    if (userExist) {
-      return showError("An account with this email already exists.");
-    }
-
-    let newUser = {
-      name: form.name,
-      email: form.email,
-      password: form.password,
-    };
-
-    setAllUsers((prev) => [...prev, newUser]);
-
-    setCurrentUser(newUser);
   };
 
-  let errorTimeOut;
   let showError = (msg) => {
-    clearTimeout(errorTimeOut);
     setError({ message: msg, show: true });
 
-    errorTimeOut = setTimeout(() => {
+    setTimeout(() => {
       setError({ message: "", show: false });
     }, 5000);
   };
@@ -116,7 +117,7 @@ const Signup = () => {
             </div>
 
             <button type="submit" className="signup-submit-btn">
-              Sign Up
+              {loading ? "Signing Up..." : "Sign Up"}
             </button>
           </form>
 
@@ -126,6 +127,7 @@ const Signup = () => {
             </p>
           </div>
         </div>
+        {loading && <div className="loading-screen"></div>}
       </div>
     </>
   );

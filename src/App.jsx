@@ -6,6 +6,7 @@ import ProductDetails from "./pages/ProductDetails.jsx";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import { UsersProvider } from "./context/UsersContext.jsx";
+import Cart from "./pages/Cart.jsx";
 
 function App() {
   return (
@@ -16,8 +17,9 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/" element={<Home />} />
-            <Route path="pages/details" element={<ProductDetails />} />
-            <Route path="pages/details/:id" element={<ProductDetails />} />
+            <Route path="details" element={<ProductDetails />} />
+            <Route path="details/:id" element={<ProductDetails />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         </BrowserRouter>
       </UsersProvider>

@@ -45,7 +45,7 @@ const WomenSection = () => {
               <CardSkeleton key={index} />
             ))
           : data.map((product) => (
-              <Link key={product.id} to={`pages/details/${product.id}`}>
+              <Link key={product.id} to={`details/${product.id}`}>
                 <Card product={product} />
               </Link>
             ))}

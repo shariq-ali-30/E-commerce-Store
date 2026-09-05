@@ -1,11 +1,12 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../context/UsersContext";
 
 const Navbar = () => {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   let { currentUser, setCurrentUser } = useContext(UserContext);
+  let [isModalOpen, setIsModalOpen] = useState(false);
 
   let activeLinkHandler = (clickedLink) => {
     let links = document.querySelectorAll(".nav-links a");
@@ -21,9 +22,17 @@ const Navbar = () => {
     document.querySelector(".overlay").classList.remove("active");
 
   let handleLogout = () => {
-    setCurrentUser(null)
-    navigate("/login")
-  }
+    setCurrentUser(null);
+    navigate("/login");
+  };
+
+  let goToCart = () => {
+    if (!currentUser) {
+      return setIsModalOpen(true)
+    }
+
+    navigate("/cart");
+  };
 
   return (
     <div className="navbar">
@@ -83,11 +92,32 @@ const Navbar = () => {
           </div>
 
           <div className="icons">
-            <div className="icon">
-              {/* <span>2</span> */}
+            <div className="icon" onClick={goToCart}>
+              {currentUser && <span>2</span>}
               <i className="ph ph-shopping-cart"></i>
             </div>
           </div>
+
+          <Modal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+let Modal = ({setIsModalOpen, isModalOpen}) => {
+  return (
+    <div className={`cart-modal-overlay ${isModalOpen ? "active" : ""}`}>
+      <div className="cart-modal">
+        <h2>Login Required</h2>
+        <p>Please log in first to access the cart.</p>
+
+        <div className="cart-modal-btns">
+          <button className="cancel-btn" onClick={() => setIsModalOpen(false)}>Cancel</button>
+
+          <Link to="/login" onClick={() => setIsModalOpen(false)}>
+            <button className="login-btn">Go to Login</button>
+          </Link>
         </div>
       </div>
     </div>
