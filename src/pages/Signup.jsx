@@ -2,7 +2,9 @@ import React, { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../context/UsersContext";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { auth } from "../Firebase/firebase";
+import { db } from "../Firebase/firebase";
 
 const Signup = () => {
   let { currentUser, setCurrentUser } = useContext(UserContext);
@@ -43,6 +45,11 @@ const Signup = () => {
         form.password.trim(),
       );
 
+      await setDoc(doc(db, "users", user.uid), {
+        name: form.name,
+        email: form.email.trim(),
+        cart: []
+      })
       setCurrentUser(user.uid);
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {

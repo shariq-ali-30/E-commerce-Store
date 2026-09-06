@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../context/UsersContext";
+import { auth } from "../Firebase/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
-  let { allUsers, currentUser, setCurrentUser } = useContext(UserContext);
+  let { currentUser, setCurrentUser } = useContext(UserContext);
 
   let [form, setForm] = useState({
     email: "",
@@ -14,6 +16,8 @@ const Login = () => {
     message: "",
     show: false,
   });
+
+  let [loading, setLoading] = useState(false)
 
   if (currentUser) {
     return <Navigate to={"/"} />;
@@ -26,19 +30,32 @@ const Login = () => {
     });
   };
 
-  let loginHandler = (e) => {
+  let loginHandler = async (e) => {
     e.preventDefault();
+    setLoading(true)
 
-    let user = allUsers.find(
-      (u) =>
-        u.email.toLowerCase().trim() == form.email.toLowerCase().trim() &&
-        u.password.trim() == form.password.trim(),
-    );
+    try {
+      let { user } = await signInWithEmailAndPassword(
+        auth,
+        form.email,
+        form.password,
+      );
 
-    if (user) {
-      setCurrentUser(user);
-    } else {
-      return showError("Invalid email or password.");
+      setCurrentUser(user.uid);
+    } catch (error) {
+      if (error.code === "auth/user-not-found") {
+        showError("No account found with this email.");
+      } else if (error.code === "auth/invalid-credential") {
+        showError("Email or password is incorrect.");
+      } else if (error.code === "auth/user-disabled") {
+        showError("This account has been disabled.");
+      } else if (error.code === "auth/too-many-requests") {
+        showError("Too many login attempts. Please try again later.");
+      } else {
+        showError("Something went wrong. Please try again.");
+      }
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -46,7 +63,7 @@ const Login = () => {
     setError({ message: msg, show: true });
 
     setTimeout(() => {
-      setError({ message: "", show: false });
+      setError({ message: "Message", show: false });
     }, 5000);
   };
 
@@ -90,7 +107,7 @@ const Login = () => {
             </div>
 
             <button type="submit" className="login-submit-btn">
-              Log In
+              {loading ? "Logging In..." : "Log In"}
             </button>
           </form>
 
@@ -100,6 +117,7 @@ const Login = () => {
             </p>
           </div>
         </div>
+        {loading && <div className="loading-screen"></div>}
       </div>
     </>
   );
