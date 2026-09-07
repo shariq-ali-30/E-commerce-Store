@@ -780,6 +780,7 @@ a {
   border-radius: 6px;
   background-color: #f1f3f5;
   transition: background-color 0.2s ease;
+  cursor: pointer;
 }
 
 .back-to-home-btn:hover {
@@ -1244,6 +1245,9 @@ a {
 /* Login Page */
 
 .loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -1252,6 +1256,54 @@ a {
   background: rgba(0, 0, 0, 0.45);
   z-index: 1000;
 }
+
+.loader {
+  --color-1: #fff;
+  --size: 1px;
+  width: calc(48 * var(--size));
+  height: calc(48 * var(--size));
+  border-radius: 50%;
+  animation: rotate 1s linear infinite;
+}
+
+.loader::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: calc(5 * var(--size)) solid var(--color-1);
+  animation: prixClipFix 2s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+
+  25% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
+
+  75% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+  }
+
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+  }
+}
+
 
 .login-page {
   display: flex;
@@ -1281,8 +1333,8 @@ a {
 }
 
 .error-msg {
+  white-space: nowrap;
   text-align: center;
-  margin: 10px;
   font-size: 14px;
   color: var(--color-danger);
   visibility: hidden;
@@ -1299,6 +1351,7 @@ a {
 }
 
 .input-group {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 8px;

@@ -17,7 +17,7 @@ const Login = () => {
     show: false,
   });
 
-  let [loading, setLoading] = useState(false)
+  let [loading, setLoading] = useState(false);
 
   if (currentUser) {
     return <Navigate to={"/"} />;
@@ -32,7 +32,7 @@ const Login = () => {
 
   let loginHandler = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
 
     try {
       let { user } = await signInWithEmailAndPassword(
@@ -54,8 +54,8 @@ const Login = () => {
       } else {
         showError("Something went wrong. Please try again.");
       }
-    }finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -63,7 +63,7 @@ const Login = () => {
     setError({ message: msg, show: true });
 
     setTimeout(() => {
-      setError({ message: "Message", show: false });
+      setError({ message: "", show: false });
     }, 5000);
   };
 
@@ -78,7 +78,7 @@ const Login = () => {
           </div>
 
           <p className={`error-msg ${error.show ? "active" : ""}`}>
-            {error.message}
+            {error.message ? error.message : "Message"}
           </p>
 
           <form className="login-form" onSubmit={loginHandler}>
@@ -117,7 +117,11 @@ const Login = () => {
             </p>
           </div>
         </div>
-        {loading && <div className="loading-screen"></div>}
+        {loading && (
+          <div className="loading-screen">
+            <span className="loader"></span>
+          </div>
+        )}
       </div>
     </>
   );

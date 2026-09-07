@@ -48,8 +48,8 @@ const Signup = () => {
       await setDoc(doc(db, "users", user.uid), {
         name: form.name,
         email: form.email.trim(),
-        cart: []
-      })
+        cart: [],
+      });
       setCurrentUser(user.uid);
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
@@ -83,7 +83,7 @@ const Signup = () => {
           </div>
 
           <p className={`error-msg ${error.show ? "active" : ""}`}>
-            {error.message}
+            {error.message ? error.message : "Message"}
           </p>
 
           <form className="signup-form" onSubmit={signupHandler}>
@@ -134,7 +134,11 @@ const Signup = () => {
             </p>
           </div>
         </div>
-        {loading && <div className="loading-screen"></div>}
+        {loading && (
+          <div className="loading-screen">
+            <span class="loader"></span>
+          </div>
+        )}
       </div>
     </>
   );

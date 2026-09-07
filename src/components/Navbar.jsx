@@ -2,11 +2,11 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UsersContext";
+import Modal from "./Modal";
 
-const Navbar = () => {
+const Navbar = ({isModalOpen, setIsModalOpen}) => {
   let navigate = useNavigate();
-  let { currentUser, setCurrentUser } = useContext(UserContext);
-  let [isModalOpen, setIsModalOpen] = useState(false);
+  let { currentUser, setCurrentUser, userData } = useContext(UserContext);
 
   let activeLinkHandler = (clickedLink) => {
     let links = document.querySelectorAll(".nav-links a");
@@ -28,7 +28,7 @@ const Navbar = () => {
 
   let goToCart = () => {
     if (!currentUser) {
-      return setIsModalOpen(true)
+      return setIsModalOpen(true);
     }
 
     navigate("/cart");
@@ -93,31 +93,12 @@ const Navbar = () => {
 
           <div className="icons">
             <div className="icon" onClick={goToCart}>
-              {currentUser && <span>2</span>}
+              {currentUser && <span>{userData?.cart?.length ?? 0}</span>}
               <i className="ph ph-shopping-cart"></i>
             </div>
           </div>
 
-          <Modal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-let Modal = ({setIsModalOpen, isModalOpen}) => {
-  return (
-    <div className={`cart-modal-overlay ${isModalOpen ? "active" : ""}`}>
-      <div className="cart-modal">
-        <h2>Login Required</h2>
-        <p>Please log in first to access the cart.</p>
-
-        <div className="cart-modal-btns">
-          <button className="cancel-btn" onClick={() => setIsModalOpen(false)}>Cancel</button>
-
-          <Link to="/login" onClick={() => setIsModalOpen(false)}>
-            <button className="login-btn">Go to Login</button>
-          </Link>
+          <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
         </div>
       </div>
     </div>

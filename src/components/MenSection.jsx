@@ -9,31 +9,26 @@ const MenSection = () => {
 
   let getData = async () => {
     setLoading(true);
-    try {
-      let res1 = await fetch(
-        "https://dummyjson.com/products/category/mens-shirts",
-      );
-      let res2 = await fetch(
-        "https://dummyjson.com/products/category/mens-shoes",
-      );
-      let res3 = await fetch(
-        "https://dummyjson.com/products/category/mens-watches",
-      );
+    let res1 = await fetch(
+      "https://dummyjson.com/products/category/mens-shirts",
+    );
+    let res2 = await fetch(
+      "https://dummyjson.com/products/category/mens-shoes",
+    );
+    let res3 = await fetch(
+      "https://dummyjson.com/products/category/mens-watches",
+    );
 
-      let data1 = await res1.json();
-      let data2 = await res2.json();
-      let data3 = await res3.json();
+    let data1 = await res1.json();
+    let data2 = await res2.json();
+    let data3 = await res3.json();
 
-      setData([
-        ...data1.products,
-        ...data2.products,
-        ...data3.products.slice(0, 5),
-      ]);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
+    setData([
+      ...data1.products,
+      ...data2.products,
+      ...data3.products.slice(0, 5),
+    ]);
+    setLoading(false);
   };
 
   useEffect(() => {

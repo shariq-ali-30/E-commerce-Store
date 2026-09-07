@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { UserContext } from "../context/UsersContext";
+import Modal from "../components/Modal";
 
-const ProductDetails = () => {
+const ProductDetails = ({isModalOpen, setIsModalOpen}) => {
   let [loading, setLoading] = useState(true);
   let { id } = useParams();
   let [product, setProduct] = useState(null);
   let [currentImage, setCurrentImage] = useState(0);
+  let { currentUser } = useContext(UserContext);
 
   let getData = async () => {
     setLoading(true);
@@ -24,6 +27,12 @@ const ProductDetails = () => {
     setCurrentImage(index);
   };
 
+  let addToCart = () => {
+    if (!currentUser) {
+      return setIsModalOpen(true)
+    }
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -32,7 +41,7 @@ const ProductDetails = () => {
     <>
       {!loading ? (
         <div className="container" id="product-details">
-          <Link to="/" className="back-to-home-btn">
+          <Link to={"/"} className="back-to-home-btn">
             <i className="ph-bold ph-arrow-left"></i> Back to Home
           </Link>
 
@@ -97,12 +106,16 @@ const ProductDetails = () => {
               <hr className="divider" />
 
               <div className="action-buttons">
-                <button className="add-to-cart-btn">
+                <button
+                  className="add-to-cart-btn"
+                  onClick={() => addToCart(product.id)}
+                >
                   <i className="ph ph-shopping-cart"></i> Add to Cart
                 </button>
               </div>
             </div>
           </section>
+          <Modal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} />
         </div>
       ) : (
         <ProductDetailsSkeleton />

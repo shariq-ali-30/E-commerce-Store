@@ -1,12 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { UserContext } from "../context/UsersContext";
 
 const Cart = () => {
+  let { currentUser, userData } = useContext(UserContext);
+
+  if (!currentUser) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <>
       <div className="cart-page">
         <div className="container">
-          <Link to="/" className="back-to-home-btn cart-back-btn">
+          <Link to={"/"} className="back-to-home-btn cart-back-btn">
             <i className="ph-bold ph-arrow-left"></i> Back to Home
           </Link>
 
@@ -32,33 +39,6 @@ const Cart = () => {
                     <div className="quantity-selector">
                       <button>-</button>
                       <span>1</span>
-                      <button>+</button>
-                    </div>
-                    <button className="remove-btn">
-                      <i className="ph ph-trash"></i> Remove
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="cart-item">
-                <div className="cart-item-img">
-                  <img
-                    src="https://dummyjson.com/image/i/products/2/thumbnail.jpg"
-                    alt="Product"
-                  />
-                </div>
-                <div className="cart-item-details">
-                  <div className="cart-item-header">
-                    <h3 className="cart-item-title">Luxury Watch</h3>
-                    <p className="cart-item-price">$199.99</p>
-                  </div>
-                  <p className="cart-item-category">Men's Watches</p>
-
-                  <div className="cart-item-bottom">
-                    <div className="quantity-selector">
-                      <button>-</button>
-                      <span>2</span>
                       <button>+</button>
                     </div>
                     <button className="remove-btn">
