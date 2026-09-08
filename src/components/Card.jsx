@@ -11,7 +11,13 @@ const Card = ({ product }) => {
           <span>({product.reviews.length})</span>
         </p>
         <span className="price">
-          ${product.discountPercentage} <span>${product.price}</span>
+          ${product.price}{" "}
+          <span>
+            $
+            {(product.price / (1 - product.discountPercentage / 100)).toFixed(
+              2,
+            )}
+          </span>
         </span>
       </div>
     </div>

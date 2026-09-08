@@ -1,30 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 import { UserContext } from "../context/UsersContext";
 import Modal from "../components/Modal";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase/firebase";
+import { productsData } from "../productsData";
 
 const ProductDetails = ({ isModalOpen, setIsModalOpen }) => {
-  let [loading, setLoading] = useState(true);
   let [spinnerLoading, setSpinnerLoading] = useState(false);
   let { id } = useParams();
-  let [product, setProduct] = useState(null);
+  let product = productsData.find((product) => product.id == id);
   let [currentImage, setCurrentImage] = useState(0);
   let { currentUser, userData } = useContext(UserContext);
-
-  let getData = async () => {
-    setLoading(true);
-    try {
-      let res = await fetch(`https://dummyjson.com/products/${id}`);
-      let product = await res.json();
-      setProduct(product);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   let changeImage = (index) => {
     setCurrentImage(index);
@@ -35,110 +22,108 @@ const ProductDetails = ({ isModalOpen, setIsModalOpen }) => {
       return setIsModalOpen(true);
     }
 
-    setSpinnerLoading(true)
+    setSpinnerLoading(true);
 
     let docRef = doc(db, "users", currentUser);
 
     await updateDoc(docRef, {
       cart: [...userData.cart, { productId: id, qty: 1 }],
     });
-    setSpinnerLoading(false)
+    setSpinnerLoading(false);
   };
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   return (
     <>
-      {!loading ? (
-        <div className="container" id="product-details">
-          <Link to={"/"} className="back-to-home-btn">
-            <i className="ph-bold ph-arrow-left"></i> Back to Home
-          </Link>
-
-          <section className="product-details-section">
-            <div className="product-gallery">
-              <div className="main-image">
-                <img src={product.images[currentImage]} alt={product.title} />
-              </div>
-              <div className="thumbnail-list">
-                {product.images.map((img, index) => (
-                  <div
-                    key={index}
-                    className={`thumbnail ${currentImage == index ? "active" : ""}`}
-                    onClick={() => changeImage(index)}
-                  >
-                    <img src={img} alt={`Thumbnail ${index + 1}`} />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="product-info">
-              <span className="category-badge">{product.category}</span>
-
-              <h1 className="title">{product.title}</h1>
-
-              <div className="rating">
-                <i className="ph-fill ph-star"></i> {product.rating}{" "}
-                <span>({product.reviews?.length || 0} Reviews)</span>
-              </div>
-
-              <div className="price-container">
-                <span className="current-price">${product.price}</span>
-                <span className="old-price">${product.price}</span>
-              </div>
-
-              <p className="description">{product.description}</p>
-
-              <div className="meta-details">
-                <div className="meta-item">
-                  <span className="meta-label">Brand:</span>
-                  <span className="meta-value">{product.brand}</span>
-                </div>
-                <div className="meta-item">
-                  <span className="meta-label">Availability:</span>
-                  <span className="meta-value in-stock">
-                    {product.availabilityStatus} ({product.stock} left)
-                  </span>
-                </div>
-                <div className="meta-item">
-                  <span className="meta-label">Shipping:</span>
-                  <span className="meta-value">
-                    {product.shippingInformation}
-                  </span>
-                </div>
-                <div className="meta-item">
-                  <span className="meta-label">Return Policy:</span>
-                  <span className="meta-value">{product.returnPolicy}</span>
-                </div>
-              </div>
-
-              <hr className="divider" />
-
-              <div className="action-buttons">
-                <button
-                  className="add-to-cart-btn"
-                  onClick={() => addToCart(product.id)}
-                  disabled={spinnerLoading}
-                >
-                  {spinnerLoading ? (
-                    <span className="loader loader2"></span>
-                  ) : (
-                    <>
-                      <i className="ph ph-shopping-cart"></i> Add to Cart
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-          </section>
-          <Modal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} />
+      <div className="container" id="product-details">
+        <div onClick={() => window.history.back()} className="back-to-home-btn">
+          <i className="ph-bold ph-arrow-left"></i> Back to Home
         </div>
-      ) : (
-        <ProductDetailsSkeleton />
-      )}
+
+        <section className="product-details-section">
+          <div className="product-gallery">
+            <div className="main-image">
+              <img src={product.images[currentImage]} alt={product.title} />
+            </div>
+            <div className="thumbnail-list">
+              {product.images.map((img, index) => (
+                <div
+                  key={index}
+                  className={`thumbnail ${currentImage == index ? "active" : ""}`}
+                  onClick={() => changeImage(index)}
+                >
+                  <img src={img} alt={`Thumbnail ${index + 1}`} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="product-info">
+            <span className="category-badge">{product.category}</span>
+
+            <h1 className="title">{product.title}</h1>
+
+            <div className="rating">
+              <i className="ph-fill ph-star"></i> {product.rating}{" "}
+              <span>({product.reviews?.length || 0} Reviews)</span>
+            </div>
+
+            <div className="price-container">
+              <span className="current-price">${product.price}</span>
+              <span className="old-price">
+                $
+                {(
+                  product.price /
+                  (1 - product.discountPercentage / 100)
+                ).toFixed(2)}
+              </span>
+            </div>
+
+            <p className="description">{product.description}</p>
+
+            <div className="meta-details">
+              <div className="meta-item">
+                <span className="meta-label">Brand:</span>
+                <span className="meta-value">{product.brand}</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Availability:</span>
+                <span className="meta-value in-stock">
+                  {product.availabilityStatus} ({product.stock} left)
+                </span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Shipping:</span>
+                <span className="meta-value">
+                  {product.shippingInformation}
+                </span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Return Policy:</span>
+                <span className="meta-value">{product.returnPolicy}</span>
+              </div>
+            </div>
+
+            <hr className="divider" />
+
+            <div className="action-buttons">
+              <button
+                className="add-to-cart-btn"
+                onClick={() => addToCart(product.id)}
+                disabled={spinnerLoading}
+              >
+                {spinnerLoading ? (
+                  <span className="loader loader2"></span>
+                ) : (
+                  <>
+                    <i className="ph ph-shopping-cart"></i> Add to Cart
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </section>
+        <Modal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} />
+      </div>
     </>
   );
 };

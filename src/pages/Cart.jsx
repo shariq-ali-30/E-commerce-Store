@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { Navigate } from "react-router-dom";
 import { UserContext } from "../context/UsersContext";
 
 const Cart = () => {
-  let { currentUser, userData } = useContext(UserContext);
+  let { currentUser } = useContext(UserContext);
 
   if (!currentUser) {
     return <Navigate to={"/"} />;
@@ -13,9 +13,12 @@ const Cart = () => {
     <>
       <div className="cart-page">
         <div className="container">
-          <Link to={"/"} className="back-to-home-btn cart-back-btn">
+          <div
+            onClick={() => window.history.back()}
+            className="back-to-home-btn cart-back-btn"
+          >
             <i className="ph-bold ph-arrow-left"></i> Back to Home
-          </Link>
+          </div>
 
           <h1 className="cart-title">Shopping Cart</h1>
 
