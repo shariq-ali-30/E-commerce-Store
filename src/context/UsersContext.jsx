@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { db } from "../Firebase/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 
 let UserContext = createContext();
 
@@ -15,15 +15,22 @@ const UsersProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("currentUser")),
   );
 
-  let getData = async () => {
-    let docRef = doc(db, "users", currentUser);
-    let docSnap = await getDoc(docRef);
-    setUserData(docSnap.data());
-  };
-
   useEffect(() => {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    getData();
+
+  if (!currentUser) {
+      return
+    }
+
+    const docRef = doc(db, "users", currentUser);
+
+    const unsubscribe = onSnapshot(docRef, (docSnap) => {
+      if (docSnap.exists()) {
+        setUserData(docSnap.data());
+      }
+    });
+
+    return () => unsubscribe();
   }, [currentUser]);
 
   return (

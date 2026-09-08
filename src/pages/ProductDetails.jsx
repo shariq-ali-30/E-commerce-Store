@@ -2,13 +2,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { UserContext } from "../context/UsersContext";
 import Modal from "../components/Modal";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../Firebase/firebase";
 
-const ProductDetails = ({isModalOpen, setIsModalOpen}) => {
+const ProductDetails = ({ isModalOpen, setIsModalOpen }) => {
   let [loading, setLoading] = useState(true);
+  let [spinnerLoading, setSpinnerLoading] = useState(false);
   let { id } = useParams();
   let [product, setProduct] = useState(null);
   let [currentImage, setCurrentImage] = useState(0);
-  let { currentUser } = useContext(UserContext);
+  let { currentUser, userData } = useContext(UserContext);
 
   let getData = async () => {
     setLoading(true);
@@ -27,10 +30,19 @@ const ProductDetails = ({isModalOpen, setIsModalOpen}) => {
     setCurrentImage(index);
   };
 
-  let addToCart = () => {
+  let addToCart = async (id) => {
     if (!currentUser) {
-      return setIsModalOpen(true)
+      return setIsModalOpen(true);
     }
+
+    setSpinnerLoading(true)
+
+    let docRef = doc(db, "users", currentUser);
+
+    await updateDoc(docRef, {
+      cart: [...userData.cart, { productId: id, qty: 1 }],
+    });
+    setSpinnerLoading(false)
   };
 
   useEffect(() => {
@@ -109,8 +121,15 @@ const ProductDetails = ({isModalOpen, setIsModalOpen}) => {
                 <button
                   className="add-to-cart-btn"
                   onClick={() => addToCart(product.id)}
+                  disabled={spinnerLoading}
                 >
-                  <i className="ph ph-shopping-cart"></i> Add to Cart
+                  {spinnerLoading ? (
+                    <span className="loader loader2"></span>
+                  ) : (
+                    <>
+                      <i className="ph ph-shopping-cart"></i> Add to Cart
+                    </>
+                  )}
                 </button>
               </div>
             </div>

@@ -1023,6 +1023,10 @@ a {
   transition: var(--transition-fast);
 }
 
+.product-info .add-to-cart-btn:disabled {
+  cursor: not-allowed;
+}
+
 .product-info .add-to-cart-btn i {
   font-size: 20px;
 }
@@ -1274,6 +1278,10 @@ a {
   border-radius: 50%;
   border: calc(5 * var(--size)) solid var(--color-1);
   animation: prixClipFix 2s linear infinite;
+}
+
+.loader2 {
+  --size: 0.5px
 }
 
 @keyframes rotate {

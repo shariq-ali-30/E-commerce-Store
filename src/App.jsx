@@ -9,6 +9,7 @@ import { UsersProvider } from "./context/UsersContext.jsx";
 import Cart from "./pages/Cart.jsx";
 
 function App() {
+  let [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
       <UsersProvider>
@@ -16,9 +17,25 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={
+                <Home
+                  isModalOpen={isModalOpen}
+                  setIsModalOpen={setIsModalOpen}
+                />
+              }
+            />
             <Route path="details" element={<ProductDetails />} />
-            <Route path="details/:id" element={<ProductDetails />} />
+            <Route
+              path="details/:id"
+              element={
+                <ProductDetails
+                  isModalOpen={isModalOpen}
+                  setIsModalOpen={setIsModalOpen}
+                />
+              }
+            />
             <Route path="/cart" element={<Cart />} />
           </Routes>
         </BrowserRouter>
