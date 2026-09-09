@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UsersContext";
@@ -30,7 +30,6 @@ const Navbar = ({isModalOpen, setIsModalOpen}) => {
     if (!currentUser) {
       return setIsModalOpen(true);
     }
-
     navigate("/cart");
   };
 
