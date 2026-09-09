@@ -11,6 +11,9 @@ const ProductDetails = ({ isModalOpen, setIsModalOpen }) => {
   let product = productsData.find((product) => product.id == id);
   let [currentImage, setCurrentImage] = useState(0);
   let { currentUser, userData } = useContext(UserContext);
+  let isExist = userData?.cart?.find(
+    (cartItem) => cartItem.productId == product.id,
+  );
 
   let changeImage = (index) => {
     setCurrentImage(index);
@@ -19,21 +22,6 @@ const ProductDetails = ({ isModalOpen, setIsModalOpen }) => {
   let addToCart = async (id) => {
     if (!currentUser) {
       return setIsModalOpen(true);
-    }
-
-    let isExist = userData.cart.find((cartItem) => cartItem.productId == id);
-
-    if (isExist) {
-      let updatedCart = userData.cart.map((cartItem) =>
-        cartItem == isExist ? { ...cartItem, qty: cartItem.qty + 1 } : cartItem,
-      );
-
-      let docRef = doc(db, "users", currentUser);
-
-      await updateDoc(docRef, {
-        cart: updatedCart,
-      });
-      return;
     }
 
     let docRef = doc(db, "users", currentUser);
@@ -74,7 +62,7 @@ const ProductDetails = ({ isModalOpen, setIsModalOpen }) => {
             <h1 className="title">{product.title}</h1>
 
             <div className="rating">
-              <i className="ph-fill ph-star"></i> {product.rating}{" "}
+              <i className="ph-fill ph-star"></i> {product.rating}
               <span>({product.reviews?.length || 0} Reviews)</span>
             </div>
 
@@ -120,8 +108,14 @@ const ProductDetails = ({ isModalOpen, setIsModalOpen }) => {
               <button
                 className="add-to-cart-btn"
                 onClick={() => addToCart(product.id)}
+                disabled={isExist ? true : false}
               >
-                <i className="ph ph-shopping-cart"></i> Add to Cart
+                {isExist ? (
+                  <i className="ph-bold ph-check-circle"></i>
+                ) : (
+                  <i className="ph ph-shopping-cart"></i>
+                )}{" "}
+                {isExist ? "Added to Cart!" : "Add to Cart"}
               </button>
             </div>
           </div>

@@ -295,7 +295,7 @@ body {
 }
 
 .navbar .left .logo img {
-  width: clamp(100px, 15vw, 150px);
+  width: clamp(130px, 15vw, 150px);
 }
 
 .navbar .menu {
@@ -347,6 +347,14 @@ body {
   visibility: visible;
 }
 
+.navbar .nav-links .btns {
+  display: none;
+}
+
+.navbar .nav-links .divider-x {
+  display: none;
+}
+
 .navbar .right {
   display: flex;
   align-items: center;
@@ -360,10 +368,10 @@ body {
 }
 
 .navbar .btns button {
-  height: clamp(32px, 4vw, 40px);
-  padding: 0 clamp(12px, 2vw, 20px);
-  font-size: clamp(12px, 1.4vw, 14px);
-  border-radius: var(--radius-xs);
+  height: 40px;
+  padding: 0 20px;
+  font-size: 14px;
+  border-radius: 4px;
   white-space: nowrap;
   cursor: pointer;
 }
@@ -400,10 +408,14 @@ body {
   color: var(--text-white);
 }
 
+.logout-btn i {
+  font-size: clamp(12px, 1.4vw, 16px);
+}
+
 .navbar .icons {
   display: flex;
   align-items: center;
-  font-size: clamp(24px, 3.5vw, 32px);
+  font-size: clamp(28px, 3.5vw, 32px);
   color: var(--color-primary);
 }
 
@@ -523,7 +535,7 @@ a {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  font-size: clamp(14px, 1.6vw, 16px);
+  font-size: clamp(11px, 1.6vw, 16px);
   font-weight: 700;
 }
 
@@ -531,33 +543,34 @@ a {
   display: flex;
   align-items: center;
   gap: clamp(2px, 0.4vw, 4px);
-  margin: clamp(4px, 0.8vw, 8px) 0;
-  font-size: clamp(11px, 1.3vw, 13px);
+  margin: clamp(6px, 0.8vw, 8px) 0;
+  font-size: clamp(9px, 1.3vw, 13px);
   font-weight: 600;
 }
 
 .cards-section .cards .card .content .rating span {
   color: var(--text-secondary);
-  font-size: clamp(8px, 1vw, 10px);
+  font-size: clamp(7px, 1vw, 10px);
+  margin-top: auto;
 }
 
 .cards-section .cards .card .content .rating i {
   color: var(--rating-star);
-  font-size: clamp(12px, 1.6vw, 16px);
+  font-size: clamp(9px, 1.6vw, 16px);
 }
 
 .cards-section .cards .card .content .price {
   display: flex;
   align-items: end;
   gap: clamp(4px, 0.8vw, 8px);
-  font-size: clamp(14px, 1.6vw, 16px);
+  font-size: clamp(12px, 1.6vw, 16px);
   font-weight: 800;
 }
 
 .cards-section .cards .card .content .price span {
   color: var(--text-secondary);
   font-weight: normal;
-  font-size: clamp(10px, 1.2vw, 12px);
+  font-size: clamp(8px, 1.2vw, 12px);
   text-decoration: line-through;
   margin-bottom: clamp(1px, 0.2vw, 2px);
 }
@@ -595,8 +608,8 @@ a {
   padding: clamp(20px, 3vw, 30px);
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
-  gap: clamp(20px, 3vw, 30px);
+  justify-content: center;
+  gap: clamp(20px, 3vw, 40px) clamp(60px, 3vw, 150px);
   flex-wrap: wrap;
 
 }
@@ -1181,8 +1194,6 @@ a {
   justify-content: center;
   align-items: center;
   z-index: 2000;
-
-  /* Transition Properties for Overlay */
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -1195,15 +1206,13 @@ a {
 
 .cart-modal {
   background-color: var(--card-bg);
-  padding: clamp(20px, 3vw, 30px);
-  border-radius: var(--radius-md);
+  padding: clamp(25px, 3vw, 30px);
+  border-radius: 10px;
   box-shadow: var(--shadow-lg);
   max-width: clamp(300px, 90vw, 400px);
   width: 90%;
   text-align: center;
   border: var(--border-default);
-
-  /* Transition Properties for Modal Box */
   transform: scale(0.8);
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -1214,29 +1223,29 @@ a {
 
 .cart-modal h2 {
   color: var(--text-primary);
-  margin-bottom: clamp(6px, 1vw, 10px);
-  font-size: clamp(20px, 2.4vw, 24px);
+  margin-bottom: 14px;
+  font-size: clamp(22px, 2.4vw, 24px);
 }
 
 .cart-modal p {
   color: var(--text-secondary);
-  margin-bottom: clamp(15px, 2.5vw, 25px);
+  margin-bottom: 14px;
   font-size: clamp(13px, 1.5vw, 15px);
 }
 
 .cart-modal-btns {
   display: flex;
   justify-content: center;
-  gap: clamp(10px, 1.5vw, 15px);
+  gap: clamp(13px, 1.5vw, 15px);
 }
 
 .cart-modal-btns button {
-  padding: clamp(8px, 1vw, 10px) clamp(15px, 2vw, 20px);
+  padding: 10px clamp(18px, 2vw, 20px);
   border-radius: var(--radius-sm);
   font-weight: 600;
   cursor: pointer;
   border: none;
-  font-size: clamp(12px, 1.4vw, 14px);
+  font-size: clamp(13px, 1.4vw, 14px);
   transition: var(--transition-fast);
 }
 
@@ -1471,7 +1480,7 @@ a {
 
 .checkout-btn {
   width: 100%;
-  height: clamp(45px, 5.5vw, 55px);
+  height: clamp(40px, 5.5vw, 50px);
   margin-top: clamp(20px, 3vw, 30px);
   background-color: var(--btn-primary-bg);
   color: var(--btn-primary-color);
@@ -1485,14 +1494,6 @@ a {
   align-items: center;
   gap: clamp(6px, 0.8vw, 8px);
   transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-.checkout-btn:hover {
-  background-color: var(--btn-primary-hover-bg);
-}
-
-.checkout-btn:active {
-  transform: scale(0.98);
 }
 
 @media (max-width: 950px) {
@@ -1524,10 +1525,10 @@ a {
     height: 230px;
   }
 
-.quantity-selector button:hover {
-  color: var(--text-primary);
-  background-color: var(--text-white);
-}  
+  .quantity-selector button:hover {
+    color: var(--text-primary);
+    background-color: var(--text-white);
+  }
 }
 
 @media (max-width: 1110px) {
@@ -1578,6 +1579,7 @@ a {
   }
 
   .navbar .menu .nav-links {
+    padding: 0 12px;
     border-right: var(--navbar-border);
     box-shadow: var(--navbar-shadow);
     padding-top: clamp(55px, 7vw, 70px);
@@ -1590,21 +1592,32 @@ a {
     flex-direction: column;
     gap: 0;
     margin: 0;
-
-    transform: translate3d(-100%, 0, 0);
+    transform: translateX(-100%);
     transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform;
   }
 
   .navbar .overlay.active .nav-links {
-    transform: translate3d(0, 0, 0);
+    transform: translateX(0);
   }
 
-  .navbar .menu .nav-links i {
+  .navbar .overlay.active .nav-links .btns {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+  }
+
+  .navbar .overlay.active .nav-links .btns a {
+    width: fit-content;
+    height: fit-content;
+    padding: 0;
+    margin: 0;
+  }
+
+  .navbar .menu .nav-links > i {
     font-size: clamp(20px, 2.5vw, 24px);
     position: absolute;
-    top: clamp(16px, 2.2vw, 22px);
-    left: clamp(16px, 2.2vw, 22px);
+    top: clamp(17px, 2.2vw, 22px);
+    left: clamp(17px, 2.2vw, 22px);
     cursor: pointer;
   }
 
@@ -1616,7 +1629,7 @@ a {
     border-radius: var(--radius-sm);
     flex-direction: row-reverse;
     gap: clamp(10px, 1.5vw, 15px);
-    width: 95%;
+    width: 100%;
     margin: 0 auto;
   }
 
@@ -1628,10 +1641,25 @@ a {
     background-color: #f3f4f6;
     border-left: 4px solid var(--color-primary);
   }
+
+  .navbar .menu .nav-links .divider-x {
+    display: block;
+    border-top: var(--card-border);
+    width: 100%;
+    margin: 10px 0 20px 0;
+  }
+
+  .navbar .menu .nav-links .logout-btn i {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 400px) {
   * {
     cursor: default !important;
+  }
+
+  .footer .top {
+    flex-direction: column;
   }
 }

@@ -8,6 +8,11 @@ import { db } from "../Firebase/firebase";
 const Cart = () => {
   let { currentUser, userData } = useContext(UserContext);
 
+  let subtotal = userData?.cart?.reduce((total, cartItem) => {
+    const product = productsData.find((p) => p.id == cartItem.productId);
+    return total + product.price * cartItem.qty;
+  }, 0);
+
   if (!currentUser) {
     return <Navigate to={"/"} />;
   }
@@ -117,7 +122,7 @@ const Cart = () => {
               <div className="summary-content">
                 <div className="summary-row">
                   <span>Subtotal</span>
-                  <span>$429.97</span>
+                  <span>${subtotal?.toFixed(2)}</span>
                 </div>
                 <div className="summary-row">
                   <span>Estimated Shipping</span>
@@ -132,7 +137,7 @@ const Cart = () => {
 
                 <div className="summary-row total">
                   <span>Total</span>
-                  <span>$444.97</span>
+                  <span>${(subtotal + 15).toFixed(2)}</span>
                 </div>
               </div>
               <button className="checkout-btn">

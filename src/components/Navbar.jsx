@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { UserContext } from "../context/UsersContext";
 import Modal from "./Modal";
 
-const Navbar = ({isModalOpen, setIsModalOpen}) => {
+const Navbar = ({ isModalOpen, setIsModalOpen }) => {
   let navigate = useNavigate();
   let { currentUser, setCurrentUser, userData } = useContext(UserContext);
 
@@ -46,7 +46,7 @@ const Navbar = ({isModalOpen, setIsModalOpen}) => {
 
             <div className="overlay">
               <div className="nav-links">
-                <i className="ph-bold ph-x" onClick={closeMenu}></i>
+                <i className="ph ph-x" onClick={closeMenu}></i>
                 <a
                   href="#"
                   className="active"
@@ -66,6 +66,26 @@ const Navbar = ({isModalOpen, setIsModalOpen}) => {
                 <a href="#contact" onClick={(e) => activeLinkHandler(e.target)}>
                   Contact <span></span>
                 </a>
+
+                <div className="divider-x"></div>
+
+                <div className="btns">
+                  {!currentUser ? (
+                    <>
+                      <Link to={"/login"}>
+                        <button className="login-btn">Login</button>
+                      </Link>
+                      <Link to={"/signup"}>
+                        <button className="signup-btn">Signup</button>
+                      </Link>
+                    </>
+                  ) : (
+                    <button className="logout-btn" onClick={handleLogout}>
+                      <i className="ph-bold ph-sign-out"></i>
+                      Logout
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
