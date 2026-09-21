@@ -5,37 +5,52 @@ import { auth } from "../Firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
-  let { currentUser, setCurrentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
 
-  let [form, setForm] = useState({
+  const [form, setForm] = useState({
     email: "",
     password: "",
   });
 
-  let [error, setError] = useState({
+  const [error, setError] = useState({
     message: "",
     show: false,
   });
 
-  let [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   if (currentUser) {
-    return <Navigate to={"/"} />;
+    return <Navigate to="/" />;
   }
 
-  let handleChange = (e) => {
+  const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
   };
 
-  let loginHandler = async (e) => {
+  const showError = (msg) => {
+    setError({
+      message: msg,
+      show: true,
+    });
+
+    setTimeout(() => {
+      setError({
+        message: "",
+        show: false,
+      });
+    }, 5000);
+  };
+
+  const loginHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      let { user } = await signInWithEmailAndPassword(
+      const { user } = await signInWithEmailAndPassword(
         auth,
         form.email,
         form.password,
@@ -59,71 +74,84 @@ const Login = () => {
     }
   };
 
-  let showError = (msg) => {
-    setError({ message: msg, show: true });
-
-    setTimeout(() => {
-      setError({ message: "", show: false });
-    }, 5000);
-  };
-
   return (
-    <>
-      <div className="container login-page">
-        <div className="login-container">
-          <div className="login-header">
-            <h1 className="section-title">
-              Welcome Back<span></span>
-            </h1>
+    <div className="container login-page">
+      <div className="login-container">
+        <div className="login-header">
+          <h1 className="section-title">
+            Welcome Back<span></span>
+          </h1>
+
+          <p className="login-subtitle">Log in to continue to your account</p>
+        </div>
+
+        <form className="login-form" onSubmit={loginHandler}>
+          <div className="input-group">
+            <label htmlFor="email">Email</label>
+
+            <input
+              id="email"
+              onChange={handleChange}
+              value={form.email}
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              autoComplete="email"
+              required
+            />
           </div>
 
-          <p className={`error-msg ${error.show ? "active" : ""}`}>
-            {error.message ? error.message : "Message"}
-          </p>
+          <div className="input-group">
+            <label htmlFor="password">Password</label>
 
-          <form className="login-form" onSubmit={loginHandler}>
-            <div className="input-group">
-              <label htmlFor="email">Email</label>
+            <div className="password-input">
               <input
-                onChange={handleChange}
-                value={form.email}
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                required
-              />
-            </div>
-
-            <div className="input-group">
-              <label htmlFor="password">Password</label>
-              <input
+                id="password"
                 onChange={handleChange}
                 value={form.password}
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
-                placeholder="••••••••"
+                placeholder="Enter your password"
+                autoComplete="current-password"
                 required
               />
+
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                <i
+                  className={showPassword ? "ph ph-eye-slash" : "ph ph-eye"}
+                ></i>
+              </button>
+            </div>
+          </div>
+
+          <div className={`error-msg ${error.show ? "active" : ""}`}>
+              <i className="ph ph-warning-circle error-icon"></i>
+              <span>{error.message}</span>
             </div>
 
-            <button type="submit" className="login-submit-btn">
-              {loading ? "Logging In..." : "Log In"}
-            </button>
-          </form>
+          <button type="submit" className="login-submit-btn" disabled={loading}>
+            {loading ? "Logging In..." : "Log In"}
+          </button>
+        </form>
 
-          <div className="login-footer">
-            <p>
-              Don't have an account? <Link to="/signup">Sign up</Link>
-            </p>
-          </div>
+        <div className="login-footer">
+          <p>
+            Don't have an account? <Link to="/signup">Sign up</Link>
+          </p>
         </div>
-        {loading && (
-          <div className="loading-screen">
-            <span className="loader"></span>
-          </div>
-        )}
       </div>
-    </>
+
+      {loading && (
+        <div className="loading-screen">
+          <span className="loader"></span>
+        </div>
+      )}
+    </div>
   );
 };
 

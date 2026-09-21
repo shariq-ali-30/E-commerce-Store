@@ -1006,57 +1006,117 @@ a {
   }
 }
 
+/* Login Page */
 
-.login-page {
+.loading-screen {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+}
+
+.loader {
+  --color-1: #fff;
+  --size: clamp(0.7px, 0.12vw, 1px);
+  width: calc(48 * var(--size));
+  height: calc(48 * var(--size));
+  border-radius: 50%;
+  animation: rotate 1s linear infinite;
+}
+
+.loader::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: calc(5 * var(--size)) solid var(--color-1);
+  animation: prixClipFix 2s linear infinite;
+}
+
+.loader2 {
+  --size: clamp(0.35px, 0.06vw, 0.5px);
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+
+  25% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
+
+  75% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+  }
+
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+  }
+}
+
+.login-page {
   min-height: 100vh;
-  padding: clamp(15px, 2vw, 20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(20px, 4vw, 40px) clamp(12px, 2vw, 20px);
 }
 
 .login-container {
+  width: 100%;
+  max-width: clamp(320px, 90vw, 440px);
   background-color: var(--card-bg);
   border: var(--border-default);
   box-shadow: var(--shadow-md);
   border-radius: var(--radius-lg);
-  width: 100%;
-  max-width: clamp(320px, 90vw, 450px);
-  padding: clamp(20px, 3vw, 30px);
+  padding: clamp(24px, 3vw, 34px) clamp(18px, 2.5vw, 32px);
 }
 
 .login-header {
   text-align: center;
-  margin-bottom: clamp(6px, 1vw, 10px);
+  margin-bottom: clamp(20px, 2.5vw, 28px);
 }
 
 .login-header h1 {
-  margin: 0 auto;
+  margin: 0 auto clamp(6px, 0.8vw, 8px);
+  font-size: clamp(24px, 3.2vw, 32px);
 }
 
-.error-msg {
-  white-space: nowrap;
-  text-align: center;
+.login-subtitle {
+  margin: 0;
+  color: var(--text-secondary);
   font-size: clamp(12px, 1.4vw, 14px);
-  color: var(--color-danger);
-  visibility: hidden;
-}
-
-.error-msg.active {
-  visibility: visible;
+  line-height: 1.5;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: clamp(15px, 2vw, 20px);
+  gap: clamp(18px, 2vw, 22px);
 }
 
 .input-group {
-  position: relative;
   display: flex;
   flex-direction: column;
-  gap: clamp(6px, 0.8vw, 8px);
+  gap: clamp(7px, 0.8vw, 9px);
 }
 
 .input-group label {
@@ -1066,15 +1126,17 @@ a {
 }
 
 .input-group input {
-  height: clamp(38px, 4.5vw, 45px);
-  padding: 0 clamp(10px, 1.5vw, 15px);
+  width: 100%;
+  height: clamp(44px, 4.8vw, 46px);
+  padding: 0 clamp(12px, 1.4vw, 14px);
   border: var(--input-border);
   border-width: 1.5px;
   border-radius: var(--radius-sm);
   background-color: var(--input-bg);
   color: var(--input-color);
-  font-size: clamp(13px, 1.5vw, 15px);
+  font-size: clamp(13px, 1.4vw, 14px);
   outline: none;
+  box-sizing: border-box;
   transition: border var(--transition-fast);
 }
 
@@ -1086,28 +1148,117 @@ a {
   color: var(--input-placeholder);
 }
 
+.password-input {
+  position: relative;
+  width: 100%;
+}
+
+.password-input input {
+  padding-right: clamp(42px, 4.5vw, 48px);
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: clamp(7px, 1vw, 10px);
+  transform: translateY(-50%);
+  width: clamp(30px, 3.5vw, 34px);
+  height: clamp(30px, 3.5vw, 34px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.password-toggle i {
+  font-size: clamp(17px, 2vw, 20px);
+  line-height: 1;
+}
+
+.password-toggle:hover {
+  color: var(--text-primary);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.error-msg {
+  display: none;
+  align-items: center;
+  gap: clamp(6px, 0.8vw, 8px);
+  width: 100%;
+  box-sizing: border-box;
+  margin: clamp(-9px, -0.8vw, -10px) 0;
+  padding: clamp(8px, 1vw, 10px) clamp(10px, 1.2vw, 12px);
+  border: 1px solid rgba(220, 38, 38, 0.15);
+  border-radius: var(--radius-sm);
+  background-color: rgba(220, 38, 38, 0.08);
+  color: var(--color-danger);
+  font-size: clamp(11px, 1.3vw, 13px);
+  line-height: 1.4;
+}
+
+.error-msg.active {
+  display: flex;
+}
+
+.error-icon {
+  flex-shrink: 0;
+  font-size: clamp(16px, 1.8vw, 18px);
+  line-height: 1.35;
+}
+
 .login-submit-btn {
-  height: clamp(38px, 4.5vw, 45px);
-  background-color: var(--btn-primary-bg);
-  color: var(--btn-primary-color);
+  width: 100%;
+  height: clamp(44px, 4.8vw, 46px);
+  margin-top: clamp(0px, 0.2vw, 2px);
   border: var(--btn-primary-border);
   border-radius: var(--radius-sm);
-  font-size: clamp(14px, 1.6vw, 16px);
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
+  font-size: clamp(13px, 1.5vw, 15px);
   font-weight: 600;
   cursor: pointer;
-  margin-top: clamp(6px, 1vw, 10px);
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.login-submit-btn:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.login-submit-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.login-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .login-footer {
   text-align: center;
-  margin-top: clamp(15px, 2.5vw, 25px);
-  font-size: clamp(12px, 1.4vw, 14px);
+  margin-top: clamp(18px, 2vw, 24px);
   color: var(--text-secondary);
+  font-size: clamp(12px, 1.4vw, 14px);
+}
+
+.login-footer p {
+  margin: 0;
 }
 
 .login-footer a {
   color: var(--text-link);
   font-weight: 600;
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
 }
 
 .login-footer a:hover {
@@ -1117,64 +1268,170 @@ a {
 /* Sign Up Page */
 
 .signup-page {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: clamp(15px, 2vw, 20px);
+  padding: clamp(20px, 4vw, 40px) clamp(12px, 2vw, 20px);
 }
 
 .signup-container {
+  width: 100%;
+  max-width: clamp(320px, 90vw, 440px);
   background-color: var(--card-bg);
   border: var(--border-default);
   box-shadow: var(--shadow-md);
   border-radius: var(--radius-lg);
-  width: 100%;
-  max-width: clamp(320px, 90vw, 450px);
-  padding: clamp(20px, 3vw, 30px);
+  padding: clamp(24px, 3vw, 34px) clamp(18px, 2.5vw, 32px);
 }
 
 .signup-header {
   text-align: center;
-  margin-bottom: clamp(6px, 1vw, 10px);
+  margin-bottom: clamp(20px, 2.5vw, 28px);
 }
 
 .signup-header h1 {
-  margin: 0 auto;
+  margin: 0 auto clamp(6px, 0.8vw, 8px);
+  font-size: clamp(24px, 3.2vw, 32px);
+}
+
+.signup-subtitle {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: clamp(12px, 1.4vw, 14px);
+  line-height: 1.5;
 }
 
 .signup-form {
   display: flex;
   flex-direction: column;
-  gap: clamp(15px, 2vw, 20px);
+  gap: clamp(18px, 2vw, 22px);
+}
+
+.signup-form .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(7px, 0.8vw, 9px);
+}
+
+.signup-form .input-group label {
+  font-size: clamp(12px, 1.4vw, 14px);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.signup-form .input-group input {
+  width: 100%;
+  height: clamp(44px, 4.8vw, 46px);
+  padding: 0 clamp(12px, 1.4vw, 14px);
+  border: var(--input-border);
+  border-width: 1.5px;
+  border-radius: var(--radius-sm);
+  background-color: var(--input-bg);
+  color: var(--input-color);
+  font-size: clamp(13px, 1.4vw, 14px);
+  outline: none;
+  box-sizing: border-box;
+  transition: border var(--transition-fast);
+}
+
+.signup-form .input-group input:focus {
+  border-color: var(--color-primary);
+}
+
+.signup-form .input-group input::placeholder {
+  color: var(--input-placeholder);
 }
 
 .signup-form input[name="name"] {
   text-transform: capitalize;
 }
 
+.signup-form .password-input {
+  position: relative;
+  width: 100%;
+}
+
+.signup-form .password-input input {
+  padding-right: clamp(42px, 4.5vw, 48px);
+}
+
+.signup-form .password-toggle {
+  position: absolute;
+  top: 50%;
+  right: clamp(7px, 1vw, 10px);
+  transform: translateY(-50%);
+  width: clamp(30px, 3.5vw, 34px);
+  height: clamp(30px, 3.5vw, 34px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.signup-form .password-toggle i {
+  font-size: clamp(17px, 2vw, 20px);
+  line-height: 1;
+}
+
+.signup-form .password-toggle:hover {
+  color: var(--text-primary);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
 .signup-submit-btn {
-  height: clamp(38px, 4.5vw, 45px);
-  background-color: var(--btn-primary-bg);
-  color: var(--btn-primary-color);
+  width: 100%;
+  height: clamp(44px, 4.8vw, 46px);
+  margin-top: 0;
   border: var(--btn-primary-border);
   border-radius: var(--radius-sm);
-  font-size: clamp(14px, 1.6vw, 16px);
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
+  font-size: clamp(13px, 1.5vw, 15px);
   font-weight: 600;
   cursor: pointer;
-  margin-top: clamp(6px, 1vw, 10px);
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.signup-submit-btn:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.signup-submit-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.signup-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .signup-footer {
   text-align: center;
-  margin-top: clamp(15px, 2.5vw, 25px);
-  font-size: clamp(12px, 1.4vw, 14px);
+  margin-top: clamp(18px, 2vw, 24px);
   color: var(--text-secondary);
+  font-size: clamp(12px, 1.4vw, 14px);
+}
+
+.signup-footer p {
+  margin: 0;
 }
 
 .signup-footer a {
   color: var(--text-link);
   font-weight: 600;
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
 }
 
 .signup-footer a:hover {
@@ -1613,7 +1870,7 @@ a {
     margin: 0;
   }
 
-  .navbar .menu .nav-links > i {
+  .navbar .menu .nav-links>i {
     font-size: clamp(20px, 2.5vw, 24px);
     position: absolute;
     top: clamp(17px, 2.2vw, 22px);
