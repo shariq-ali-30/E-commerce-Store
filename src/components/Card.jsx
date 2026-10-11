@@ -2,7 +2,7 @@ const Card = ({ product }) => {
   return (
     <div className="card">
       <div className="image">
-        <img src={product.images[0]} alt="kuch bhii" />
+        <img src={product.images[0]} alt={product.title} />
       </div>
       <div className="content">
         <h3 className="title">{product.title}</h3>
