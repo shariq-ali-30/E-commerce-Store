@@ -10,26 +10,50 @@ const ProductDetails = ({ isModalOpen, setIsModalOpen }) => {
   let { id } = useParams();
   let product = productsData.find((product) => product.id == id);
   let [currentImage, setCurrentImage] = useState(0);
+  let [isCartUpdating, setIsCartUpdating] = useState(false);
   let { currentUser, userData } = useContext(UserContext);
-  let isExist = userData?.cart?.find(
-    (cartItem) => cartItem.productId == product.id,
-  );
+  let cart = Array.isArray(userData?.cart) ? userData.cart : [];
+  let isExist = product
+    ? cart.some((cartItem) => String(cartItem.productId) === String(product.id))
+    : false;
 
   let changeImage = (index) => {
     setCurrentImage(index);
   };
 
-  let addToCart = async (id) => {
+  let toggleCart = async () => {
     if (!currentUser) {
       return setIsModalOpen(true);
     }
 
-    let docRef = doc(db, "users", currentUser);
+    if (!product || isCartUpdating) return;
 
-    await updateDoc(docRef, {
-      cart: [...userData.cart, { productId: id, qty: 1 }],
-    });
+    setIsCartUpdating(true);
+    try {
+      let docRef = doc(db, "users", currentUser);
+      let updatedCart = isExist
+        ? cart.filter((cartItem) => String(cartItem.productId) !== String(product.id))
+        : [...cart, { productId: product.id, qty: 1 }];
+
+      await updateDoc(docRef, { cart: updatedCart });
+    } catch (error) {
+      console.error("Cart update failed:", error);
+    } finally {
+      setIsCartUpdating(false);
+    }
   };
+
+  if (!product) {
+    return (
+      <div className="container" id="product-details">
+        <div className="back-to-home-btn" onClick={() => window.history.back()}>
+          <i className="ph-bold ph-arrow-left"></i> Back
+        </div>
+        <h2>Product not found</h2>
+        <Link to="/">Back to Home</Link>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -107,15 +131,17 @@ const ProductDetails = ({ isModalOpen, setIsModalOpen }) => {
             <div className="action-buttons">
               <button
                 className="add-to-cart-btn"
-                onClick={() => addToCart(product.id)}
-                disabled={isExist ? true : false}
+                style={isExist ? { backgroundColor: "#dc2626", borderColor: "#dc2626", color: "#ffffff" } : undefined}
+                onClick={toggleCart}
+                disabled={isCartUpdating}
+                aria-label={isExist ? "Remove from cart" : "Add to cart"}
               >
                 {isExist ? (
-                  <i className="ph-bold ph-check-circle"></i>
+                  <i className="ph ph-trash"></i>
                 ) : (
                   <i className="ph ph-shopping-cart"></i>
                 )}{" "}
-                {isExist ? "Added to Cart!" : "Add to Cart"}
+                {isCartUpdating ? "Updating Cart..." : isExist ? "Remove from Cart" : "Add to Cart"}
               </button>
             </div>
           </div>
