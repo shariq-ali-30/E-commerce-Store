@@ -10,8 +10,7 @@ const ProductDetails = ({ isModalOpen, setIsModalOpen }) => {
   let { id } = useParams();
   let product = productsData.find((product) => product.id == id);
   let [currentImage, setCurrentImage] = useState(0);
-  let [isCartUpdating, setIsCartUpdating] = useState(false);
-  let { currentUser, userData } = useContext(UserContext);
+  let { currentUser, userData, setUserData } = useContext(UserContext);
   let cart = Array.isArray(userData?.cart) ? userData.cart : [];
   let isExist = product
     ? cart.some((cartItem) => String(cartItem.productId) === String(product.id))
@@ -21,26 +20,22 @@ const ProductDetails = ({ isModalOpen, setIsModalOpen }) => {
     setCurrentImage(index);
   };
 
-  let toggleCart = async () => {
+  let toggleCart = () => {
     if (!currentUser) {
       return setIsModalOpen(true);
     }
 
-    if (!product || isCartUpdating) return;
+    if (!product) return;
 
-    setIsCartUpdating(true);
-    try {
-      let docRef = doc(db, "users", currentUser);
-      let updatedCart = isExist
-        ? cart.filter((cartItem) => String(cartItem.productId) !== String(product.id))
-        : [...cart, { productId: product.id, qty: 1 }];
+    let updatedCart = isExist
+      ? cart.filter((cartItem) => String(cartItem.productId) !== String(product.id))
+      : [...cart, { productId: product.id, qty: 1 }];
 
-      await updateDoc(docRef, { cart: updatedCart });
-    } catch (error) {
+    // Update the UI immediately; persist to Firestore in the background.
+    setUserData({ ...userData, cart: updatedCart });
+    updateDoc(doc(db, "users", currentUser), { cart: updatedCart }).catch((error) => {
       console.error("Cart update failed:", error);
-    } finally {
-      setIsCartUpdating(false);
-    }
+    });
   };
 
   if (!product) {
@@ -133,7 +128,6 @@ const ProductDetails = ({ isModalOpen, setIsModalOpen }) => {
                 className="add-to-cart-btn"
                 style={isExist ? { backgroundColor: "#dc2626", borderColor: "#dc2626", color: "#ffffff" } : undefined}
                 onClick={toggleCart}
-                disabled={isCartUpdating}
                 aria-label={isExist ? "Remove from cart" : "Add to cart"}
               >
                 {isExist ? (
@@ -141,7 +135,7 @@ const ProductDetails = ({ isModalOpen, setIsModalOpen }) => {
                 ) : (
                   <i className="ph ph-shopping-cart"></i>
                 )}{" "}
-                {isCartUpdating ? "Updating Cart..." : isExist ? "Remove from Cart" : "Add to Cart"}
+                {isExist ? "Remove from Cart" : "Add to Cart"}
               </button>
             </div>
           </div>
